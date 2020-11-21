@@ -15,16 +15,12 @@ Also known as Good-Morning to All
 
 $$\begin{array}{ |rrr|rrr| } & \\ 
 2 & 3 & 2 & 5 & 4 & - \\
+  & \underset{7}{\dot{}} & & \underset{7}{\dot{}} & 1 & - \\
 Good & morn & ing & to & you. \\
-2 & 3 & 2 & 5 & 4 & - \\
 \\ & \\ \end{array}$$
 
 $$\begin{array}{ |rrr|rrr| } & \\ 
 2 & 3 & 2 & 6 & 5 & - \\
-Good & morn & ing & to & you.
-\\ & \\ \end{array}$$
-
-$$\begin{array}{ |rrr|rrr| } & \\ 
-2 & 3 & 2 & 6 & 5 & - \\
+  & 1 &   & 1 & \underset{7}{\dot{}} & - \\
 Good & morn & ing & to & you.
 \\ & \\ \end{array}$$
