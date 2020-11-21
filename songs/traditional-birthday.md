@@ -13,14 +13,14 @@ Hap py Birth day to you.
 
 Also known as Good-Morning to All
 
-\begin{array}{|rrr|rrr|}
+$$\begin{array}{|rrr|rrr|}
  &  &  &  &  & \\
 2 & 3 & 2 & 5 & 4 & -\\
  & \check{7} &  & \check{7} & 1 & -\\
 Good & morn & ing & to & you. & \\
 \check{2} & \check{2} & - & \check{2} & \check{2} & -\\
  & \check{\check{5}} & - &  & \check{\check{6}} & -
-\end{array}
+\end{array}$$
 
 $$\begin{array}{|rrr|rrr|}
  &  &  &  &  & \\
