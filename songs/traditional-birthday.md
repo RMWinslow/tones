@@ -24,3 +24,10 @@ $$\begin{array}{ |rrr|rrr| } & \\
   & 1 &   & 1 & \underset{7}{\dot{}} & - \\
 Good & morn & ing & to & you.
 \\ & \\ \end{array}$$
+
+
+
+| Good | Morn | ing | to | You! |
+|---|---|---|---|---|---|
+|2|3|2|5|4|-|
+||7,||7,|1|-|
