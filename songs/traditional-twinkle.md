@@ -20,7 +20,7 @@ $$\begin{array}{ |rrrr|rrrr|rrrr|rrrr| } & \\
 & \\ \end{array}$$
 
 $$\begin{array}{ |rrrr|rrrr|rrrr|rrrr| } & \\ 
-1&2&3&3&
+1&1&5&5&
 6&6&5&-&
 4&4&3&3&
 2&2&1&- \\
