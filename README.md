@@ -18,6 +18,17 @@ Inline latext how you doin? \(x^2\)   `\(x^3\)`   \\(x^4\\)   `$x^5$` $x^6$
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
+
+\[\begin{array}{ |rrrr|rrrr|rrrr|rrrr|rrrr|rrrr| } & \\ 
+
+  &  &  &  &
+  &  &  &  &
+  &  &  &  &
+  &  &  &  &
+  \\ 
+
+& \\ \end{array}\]
+
 ```markdown
 Syntax highlighted code block
 
