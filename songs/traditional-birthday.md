@@ -15,7 +15,7 @@ Also known as Good-Morning to All
 
 $$\begin{array}{ |rrr|rrr| } & \\ 
 2 & 3 & 2 & 5 & 4 & - \\
-  & \underset{7}{\dot{}} & & \underset{7}{\dot{}} & 1 & - \\
+  & \check{7} & & \check{7} & 1 & - \\
 Good & morn & ing & to & you. \\
 \\ & \\ \end{array}$$
 
