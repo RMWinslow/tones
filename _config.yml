@@ -14,3 +14,4 @@ compress_html:
 
 plugins:
   - jekyll-sitemap
+  - jekyll-feed
