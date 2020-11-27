@@ -32,4 +32,26 @@ Good & morn & ing & to & you. & \\
  &  &  &  &  & \\
 \end{array}$$
 
+$$
+\begin{array}{|rrr|rrr|}
+ &  &  &  &  & \\
+2 & \hat{2} & 7 & 5 & 4 & 3\\
+\check{7} & 5 & - & 2 & 2 & 1\\
+ & 2 & - &  &  & \\
+Good & morn & ing & dear & chil & dren,\\
+ &  &  &  &  & \\
+ &  &  &  &  & \\
+ &  &  &  &  & \\
+\end{array}
+$$
 
+
+$$\begin{array}{|rrr|rrr|}
+ &  &  &  &  & \\
+\hat{2} & 7 & 5 & 6 & 5 & -\\
+1 & 2 & - & 1 & \check{7} & -\\
+Good & morn & ing & to & all. & \\
+ &  &  &  &  & \\
+ &  &  &  &  & \\
+ &  &  &  &  & \\
+\end{array}$$
