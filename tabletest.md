@@ -27,6 +27,16 @@ a bit of javascript in the foot that edits the style,
 and include a single line of js to <u>change the</u> <u><u>value of that parameter</u></u> when I need to. 
 
 
+html entities can be used to add marks for octaves and eight notes
+
+|3&#775;|`3&#775;`|
+|3&#776;|`3&#776;`|
+|3&#778;|`3&#775;`|
+|3&#803;|`3&#803;`|
+|3&#804;|`3&#804;`|
+|3&#805;|`3&#805;`|
+
+
 
 
 |   |   |   |   |
