@@ -19,6 +19,11 @@
 Here is another edit to force a rebuild.take 17
 
 
+definition test
+: and heres the definition
+
+
+
 
 Some of the styling isn't being overtwritten. No probs. The reset style above worked. Now to try plugging it into the jtd version of the site.
 
