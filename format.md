@@ -2,6 +2,8 @@
 title: Formatting guide
 ---
 
+edit this here file to force a rebuild
+
 # HTML version
 
 Kramdown supports lazy table rendering without the typical markdown header whatzits
