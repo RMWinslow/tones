@@ -3,7 +3,7 @@
 //
 // stylelint-disable max-nesting-depth, selector-no-type, selector-max-type
 
-/*.table-wrapper {
+.table-wrapper {
   display: block;
   width: 100%;
   max-width: 100%;
@@ -27,7 +27,7 @@ td {
   padding-right: $sp-3;
   padding-bottom: $sp-2;
   padding-left: $sp-3;
-  background-color: $table-background-color;
+  background-color: red;
   border-bottom: $border rgba($border-color, 0.5);
   border-left: $border $border-color;
 
@@ -55,4 +55,4 @@ thead {
   th {
     border-bottom: $border $border-color;
   }
-}*/
+}
