@@ -16,6 +16,10 @@
 </style>
 
 
+Here is another edit to force a rebuild
+
+
+
 Some of the styling isn't being overtwritten. No probs. The reset style above worked. Now to try plugging it into the jtd version of the site.
 
 I can pretty easily type up songs in mathjax, but making it readable in markdown would be even better.
