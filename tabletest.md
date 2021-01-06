@@ -1,4 +1,4 @@
-<style>
+<!--<style>
   table{
     overflow-x: scroll;
     width:auto;
@@ -13,7 +13,7 @@
   td:nth-child(4n) {
     border-right: 1px solid black;
   }
-</style>
+</style>-->
 
 
 Here is another edit to force a rebuild.take 21
