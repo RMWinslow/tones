@@ -100,10 +100,66 @@ gains = {};
 //And here's the stuff that tells us what the frequency for each key is supposed to be.
 //It also, incidentally, implicitly defines which keys to ignore.
 //Change the tuning by changing the values of the row and column multipliers
-var principle = 132;
+//var principle = 132;
 
 var rowMult = [2**(6/12),  2**(5/12),  1, 2**(-1/12)];
 var colMult = [1, 2**(2/12), 2**(4/12), 2,  2*2**(2/12), 2*2**(4/12), 4,  4*2**(2/12), 4*2**(4/12), 8,  8*2**(2/12), 8*2**(4/12), 16, ];
+
+var principle = 440;
+NoteToFrequency_EqualTemperment = {
+    A3 = (1/2) * principle,
+   bB3 = (1/2) * principle * 2^(1/12),
+    B3 = (1/2) * principle * 2^(2/12),
+    C3 = (1/2) * principle * 2^(3/12),
+   bD3 = (1/2) * principle * 2^(4/12),
+    D3 = (1/2) * principle * 2^(5/12),
+   bE3 = (1/2) * principle * 2^(6/12),
+    E3 = (1/2) * principle * 2^(7/12),
+    F3 = (1/2) * principle * 2^(8/12),
+   bG3 = (1/2) * principle * 2^(9/12),
+    G3 = (1/2) * principle * 2^(10/12),
+   bA3 = (1/2) * principle * 2^(11/12),
+    
+    A4 = principle,
+   bB4 = principle * 2^(1/12),
+    B4 = principle * 2^(2/12),
+    C4 = principle * 2^(3/12),
+   bD4 = principle * 2^(4/12),
+    D4 = principle * 2^(5/12),
+   bE4 = principle * 2^(6/12),
+    E4 = principle * 2^(7/12),
+    F4 = principle * 2^(8/12),
+   bG4 = principle * 2^(9/12),
+    G4 = principle * 2^(10/12),
+   bA4 = principle * 2^(11/12),
+    
+    A5 = 2 * principle,
+   bB5 = 2 * principle * 2^(1/12),
+    B5 = 2 * principle * 2^(2/12),
+    C5 = 2 * principle * 2^(3/12),
+   bD5 = 2 * principle * 2^(4/12),
+    D5 = 2 * principle * 2^(5/12),
+   bE5 = 2 *  principle * 2^(6/12),
+    E5 = 2 * principle * 2^(7/12),
+    F5 = 2 * principle * 2^(8/12),
+   bG5 = 2 * principle * 2^(9/12),
+    G5 = 2 * principle * 2^(10/12),
+   bA5 = 2 * principle * 2^(11/12),
+
+    A6 = 4 * principle,
+   bB6 = 4 * principle * 2^(1/12),
+    B6 = 4 * principle * 2^(2/12),
+    C6 = 4 * principle * 2^(3/12),
+   bD6 = 4 * principle * 2^(4/12),
+    D6 = 4 * principle * 2^(5/12),
+   bE6 = 4 * principle * 2^(6/12),
+    E6 = 4 * principle * 2^(7/12),
+    F6 = 4 * principle * 2^(8/12),
+   bG6 = 4 * principle * 2^(9/12),
+    G6 = 4 * principle * 2^(10/12),
+   bA6 = 4 * principle * 2^(11/12),
+}
+
 
 tones = {
 	Digit1: principle * rowMult[0] * colMult[0] * 2^(-4/12),
@@ -286,8 +342,6 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
 
         <hr>
 
-        <ul class="nav-list"><li class="nav-list-item"><a href="http://www.rmwinslow.com/tones/format.html" class="nav-list-link">Formatting guide</a></li><li class="nav-list-item"><a href="#" class="nav-list-expander"><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a><a href="http://www.rmwinslow.com/tones/moms.html" class="nav-list-link">Mom's Sheet Music</a><ul class="nav-list "></ul></li><li class="nav-list-item"><a href="#" class="nav-list-expander"><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a><a href="http://www.rmwinslow.com/tones/traditional.html" class="nav-list-link">Traditional Songs</a><ul class="nav-list "><li class="nav-list-item "><a href="http://www.rmwinslow.com/tones/songs/traditional-birthday.html" class="nav-list-link">Birthday Song</a></li><li class="nav-list-item "><a href="http://www.rmwinslow.com/tones/songs/traditional-twinkle.html" class="nav-list-link">Twinkle Twinkle</a></li></ul></li></ul>
-
       
     </nav>
     <footer class="site-footer">
@@ -296,17 +350,7 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
   </div>
   <div class="main" id="top">
     <div id="main-header" class="main-header">
-      
-        <div class="search">
-          <div class="search-input-wrap">
-            <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Pure Tones" aria-label="Search Pure Tones" autocomplete="off">
-            <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
-          </div>
-          <div id="search-results" class="search-results"></div>
-        </div>
-      
-      
-      
+           
     </div>
     
     
