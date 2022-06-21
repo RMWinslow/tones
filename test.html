@@ -104,8 +104,6 @@ gains = {};
 
 var principle = 440;
 NoteToFrequency_EqualTemperment = {
-//I think these aren't the right labels because musicians are twats. I need to do some renumbering.
-
     A2: (1/4) * principle,
    bB2: (1/4) * principle * Math.pow(2,1/12),
     B2: (1/4) * principle * Math.pow(2,2/12),
@@ -186,8 +184,6 @@ NoteToFrequency_EqualTemperment = {
 }
   
 NoteToFrequency_FivePrimeLimitAsymmetric = {
-//I think these aren't the right labels because musicians are twats. I need to do some renumbering.
-
     A2: (1/4) * principle * (3/5) * (5/3),
    bB2: (1/4) * principle * (3/5) * (9/5),
     B2: (1/4) * principle * (3/5) * (15/8),
@@ -403,7 +399,9 @@ KeyToNote_IsomorphicWicki = {
     Numpad9: 'D5',
 };
   
-  
+function changeKeyboardImage(filename){
+    document.getElementById('kbimageHolder').innerHTML = '<img src="/tones/img/'+filename+'.svg" alt="An svg depicting a qwerty keyboard, color-coded and labelled to show what note each button plays." />';
+}
   
 var KeyToNote = KeyToNote_12KeyErgonomic;
 var NoteToFreq = NoteToFrequency_EqualTemperment;
@@ -566,7 +564,7 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
             <legend>Keyboard Layout</legend>
 
             <div>
-            <input type="radio" id="qwerty12" name="keyboardlayout" value="qwerty12" onclick='KeyToNote = KeyToNote_12KeyErgonomic;'
+            <input type="radio" id="qwerty12" name="keyboardlayout" value="qwerty12" onclick='KeyToNote = KeyToNote_12KeyErgonomic; changeKeyboardImage("kb-notes");'
                     checked>
             <label for="qwerty12">12 Key Qwerty</label>
             </div>
@@ -577,7 +575,7 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
             </div>
 
             <div>
-            <input type="radio" id="wicki" name="keyboardlayout" value="wicki" onclick='KeyToNote = KeyToNote_IsomorphicWicki'>
+            <input type="radio" id="wicki" name="keyboardlayout" value="wicki" onclick='KeyToNote = KeyToNote_IsomorphicWicki; changeKeyboardImage("kb-wicki");'>
             <label for="wicki">Isomorphic - Wicki</label>
             </div>
 
@@ -640,7 +638,7 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
   <li>The notes are laid out in a way that “feels right” on a qwerty keyboard, instead of just trying to copy the layout of a piano.</li>
 </ol>
 
-<p><img src="/tones/img/kb-notes.svg" alt="An svg depicting a qwerty keyboard, color-coded and labelled to show what note each button plays." /></p>
+<div id="kbimageHolder"><img src="/tones/img/kb-notes.svg" alt="An svg depicting a qwerty keyboard, color-coded and labelled to show what note each button plays." /></div>
 
 <p>Keyboard svg modified from <a href="https://commons.wikimedia.org/wiki/File:ANSI_US_QWERTY_(Windows)_Enter_Return.svg">here</a>.</p>
 
