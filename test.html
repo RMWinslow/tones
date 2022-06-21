@@ -274,7 +274,7 @@ function initiateNote(keycode){
     //Create the basic note 
     oscillators[keycode] = ctx.createOscillator();               //Create a sine wave
     oscillators[keycode].frequency.value = KeyToFreq(keycode);
-    oscillator.type = wavetype;
+    oscillators[keycode].type = wavetype;
   
     gains[keycode] = ctx.createGain();                           //Create volume control so we can fade it out.
     oscillators[keycode].connect(gains[keycode]);                //Connect the components
@@ -284,10 +284,13 @@ function initiateNote(keycode){
     for (let i = 0; i < timbreFreq.length; i++) {
         oscillators[keycode,i] = ctx.createOscillator();
         oscillators[keycode,i].frequency.value = KeyToFreq(keycode) * timbreFreq[i];
+        oscillators[keycode,i].type = wavetype;
+      
         gains[keycode,i] = ctx.createGain();
         oscillators[keycode,i].connect(gains[keycode,i]);
         gains[keycode,i].connect(gains[keycode]);
         gains[keycode,i].gain.value = timbreVolume[i];
+      
         oscillators[keycode,i].start(0);
     }
     
