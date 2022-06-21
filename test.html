@@ -266,10 +266,11 @@ function KeyToFreq(keycode){
 }
 
 
-//Fixed length of 8 for timbre right now
-var timbreFreq =  [1.001, 1.01, 1.2, 1.5, 2];
-var timbreVolume = [0.0,  0.0,  0.0, 0.0, 0.0];
-
+//Fixed length of 5 for timbre right now
+var timbreFreq =   [1.001, 1.01, 1.2, 1.5, 2];
+var timbreVolume = [0.0,   0.0,  0.0, 0.0, 0.0];
+var timbrePhase =  [0.0,   0.0,  0.0, 0.0, 0.25]; //measure in rotations, so 90 degrees is 1/4
+  
 function initiateNote(keycode){
     //Create the basic note 
     oscillators[keycode] = ctx.createOscillator();               //Create a sine wave
@@ -291,7 +292,7 @@ function initiateNote(keycode){
         gains[keycode,i].connect(gains[keycode]);
         gains[keycode,i].gain.value = timbreVolume[i];
       
-        oscillators[keycode,i].start(0);
+        oscillators[keycode,i].start(ctx.currentTime + (1/KeyToFreq(keycode))*timbrePhase[i] );
     }
     
     oscillators[keycode].start(0);                               //Start playing the sound.
