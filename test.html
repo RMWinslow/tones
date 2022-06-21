@@ -392,19 +392,24 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
             <legend>Select a maintenance drone:</legend>
 
             <div>
-            <input type="radio" id="huey" name="drone" value="huey"
+            <input type="radio" id="sine" name="wavetype" value="sine" onclick='wavetype = "sine";'
                     checked>
-            <label for="huey">Huey</label>
+            <label for="sine">sine</label>
             </div>
 
             <div>
-            <input type="radio" id="dewey" name="drone" value="dewey">
-            <label for="dewey">Dewey</label>
+            <input type="radio" id="square" name="wavetype" value="square" onclick='wavetype = "square";'>
+            <label for="square">square</label>
             </div>
 
             <div>
-            <input type="radio" id="louie" name="drone" value="louie">
-            <label for="louie">Louie</label>
+            <input type="radio" id="sawtooth" name="wavetype" value="sawtooth" onclick='wavetype = "sawtooth";'>
+            <label for="sawtooth">sawtooth</label>
+            </div>
+
+            <div>
+            <input type="radio" id="triangle" name="wavetype" value="triangle" onclick='wavetype = "triangle";'>
+            <label for="triangle">triangle</label>
             </div>
         </fieldset>
 
