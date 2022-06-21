@@ -184,6 +184,88 @@ NoteToFrequency_EqualTemperment = {
     G8: 8 * principle * Math.pow(2,10/12),
    bA8: 8 * principle * Math.pow(2,11/12),
 }
+  
+NoteToFrequency_FivePrimeLimitAsymmetric = {
+//I think these aren't the right labels because musicians are twats. I need to do some renumbering.
+
+    A2: (1/4) * principle * (3/5) * (5/3),
+   bB2: (1/4) * principle * (3/5) * (9/5),
+    B2: (1/4) * principle * (3/5) * (15/8),
+    C3: (1/2) * principle * (3/5),
+   bD3: (1/2) * principle * (3/5) * (16/15),
+    D3: (1/2) * principle * (3/5) * (9/8),
+   bE3: (1/2) * principle * (3/5) * (6/5),
+    E3: (1/2) * principle * (3/5) * (5/4),
+    F3: (1/2) * principle * (3/5) * (4/3),
+   bG3: (1/2) * principle * (3/5) * (45/32),
+    G3: (1/2) * principle * (3/5) * (3/2),
+   bA3: (1/2) * principle * (3/5) * (8/5),
+    
+    A3: (1/2) * principle * (3/5) * (5/3),
+   bB3: (1/2) * principle * (3/5) * (9/5),
+    B3: (1/2) * principle * (3/5) * (15/8),
+    C4: principle * (3/5),
+   bD4: principle * (3/5) * (16/15),
+    D4: principle * (3/5) * (9/8),
+   bE4: principle * (3/5) * (6/5),
+    E4: principle * (3/5) * (5/4),
+    F4: principle * (3/5) * (4/3),
+   bG4: principle * (3/5) * (45/32),
+    G4: principle * (3/5) * (3/2),
+   bA4: principle * (3/5) * (8/5),
+    
+    A4: principle * (3/5) * (5/3),
+   bB4: principle * (3/5) * (9/5),
+    B4: principle * (3/5) * (15/8),
+    C5: 2 * principle * (3/5),
+   bD5: 2 * principle * (3/5) * (16/15),
+    D5: 2 * principle * (3/5) * (9/8),
+   bE5: 2 * principle * (3/5) * (6/5),
+    E5: 2 * principle * (3/5) * (5/4),
+    F5: 2 * principle * (3/5) * (4/3),
+   bG5: 2 * principle * (3/5) * (45/32),
+    G5: 2 * principle * (3/5) * (3/2),
+   bA5: 2 * principle * (3/5) * (8/5),
+    
+    A5: 2 * principle * (3/5) * (5/3),
+   bB5: 2 * principle * (3/5) * (9/5),
+    B5: 2 * principle * (3/5) * (15/8),
+    C6: 4 * principle * (3/5),
+   bD6: 4 * principle * (3/5) * (16/15),
+    D6: 4 * principle * (3/5) * (9/8),
+   bE6: 4 * principle * (3/5) * (6/5),
+    E6: 4 * principle * (3/5) * (5/4),
+    F6: 4 * principle * (3/5) * (4/3),
+   bG6: 4 * principle * (3/5) * (45/32),
+    G6: 4 * principle * (3/5) * (3/2),
+   bA6: 4 * principle * (3/5) * (8/5),
+    
+    A6: 4 * principle * (3/5) * (5/3),
+   bB6: 4 * principle * (3/5) * (9/5),
+    B6: 4 * principle * (3/5) * (15/8),
+    C7: 8 * principle * (3/5),
+   bD7: 8 * principle * (3/5) * (16/15),
+    D7: 8 * principle * (3/5) * (9/8),
+   bE7: 8 * principle * (3/5) * (6/5),
+    E7: 8 * principle * (3/5) * (5/4),
+    F7: 8 * principle * (3/5) * (4/3),
+   bG7: 8 * principle * (3/5) * (45/32),
+    G7: 8 * principle * (3/5) * (3/2),
+   bA7: 8 * principle * (3/5) * (8/5),
+    
+    A7: 8 * principle * (3/5) * (5/3),
+   bB7: 8 * principle * (3/5) * (9/5),
+    B7: 8 * principle * (3/5) * (15/8),
+    C8: 16 * principle * (3/5),
+   bD8: 16 * principle * (3/5) * (16/15),
+    D8: 16 * principle * (3/5) * (9/8),
+   bE8: 16 * principle * (3/5) * (6/5),
+    E8: 16 * principle * (3/5) * (5/4),
+    F8: 16 * principle * (3/5) * (4/3),
+   bG8: 16 * principle * (3/5) * (45/32),
+    G8: 16 * principle * (3/5) * (3/2),
+   bA8: 16 * principle * (3/5) * (8/5),
+}
 
 KeyToNote_12KeyErgonomic = {
     Digit1: 'bB2',
@@ -439,13 +521,13 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
             <legend>Tuning</legend>
 
             <div>
-            <input type="radio" id="equal" name="keyboardlayout" value="equal" onclick=''
+            <input type="radio" id="equal" name="tuning" value="equal" onclick='NoteToFreq = NoteToFrequency_EqualTemperment;'
                     checked>
             <label for="equal">Equal Temperment</label>
             </div>
 
             <div>
-            <input type="radio" id="fiveprime" name="keyboardlayout" value="fiveprime" onclick=''>
+            <input type="radio" id="fiveprime" name="tuning" value="fiveprime" onclick='NoteToFreq = NoteToFrequency_FivePrimeLimitAsymmetric;'>
             <label for="fiveprime">5-Prime-Limit</label>
             </div>
         </fieldset>
