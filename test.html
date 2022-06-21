@@ -255,6 +255,7 @@ KeyToNote_12KeyErgonomic = {
 
 var KeyToNote = KeyToNote_12KeyErgonomic;
 var NoteToFreq = NoteToFrequency_EqualTemperment;
+var wavetype = "sine";
 
 function KeyToFreq(keycode){
     if (KeyToNote[keycode] && NoteToFreq[KeyToNote[keycode]]){
@@ -268,10 +269,13 @@ function KeyToFreq(keycode){
 //Fixed length of 8 for timbre right now
 var timbreFreq =  [1.001, 1.01, 1.2, 1.5, 2];
 var timbreVolume = [0.0,  0.0,  0.0, 0.0, 0.0];
+
 function initiateNote(keycode){
     //Create the basic note 
     oscillators[keycode] = ctx.createOscillator();               //Create a sine wave
     oscillators[keycode].frequency.value = KeyToFreq(keycode);
+    oscillator.type = wavetype;
+  
     gains[keycode] = ctx.createGain();                           //Create volume control so we can fade it out.
     oscillators[keycode].connect(gains[keycode]);                //Connect the components
     gains[keycode].connect(ctx.destination);
@@ -379,6 +383,9 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
         <p>This is a test. Just putting stuff here.</p>
 
         <fieldset>
+          
+          <button style='font-family:inherit;' onclick='wavetype = "square";'>Square</button>
+     
             <legend>Select a maintenance drone:</legend>
 
             <div>
