@@ -406,6 +406,7 @@ function changeKeyboardImage(filename){
 var KeyToNote = KeyToNote_12KeyErgonomic;
 var NoteToFreq = NoteToFrequency_EqualTemperment;
 var wavetype = "sine";
+var defaultGain = 0.1; //Square and sawtooth waves are louder than sine and triangle waves. So need to have different 0.05 gain instead.
 
 function KeyToFreq(keycode){
     if (KeyToNote[keycode] && NoteToFreq[KeyToNote[keycode]]){
@@ -446,13 +447,13 @@ function initiateNote(keycode){
     }
     
     oscillators[keycode].start(0);                               //Start playing the sound.
-    gains[keycode].gain.value = 0.05;                             //But keep it quiet so it doesn't blow out the speakers.
+    gains[keycode].gain.value = defaultGain;                    //But keep it quiet so it doesn't blow out the speakers.
     
 }
 function terminateNote(keycode){
-    gains[keycode].gain.value = 0.05;                                                 //restablish the volume level or else it will make clicky sounds
+    gains[keycode].gain.value = defaultGain;                                        //restablish the volume level or else it will make clicky sounds
     gains[keycode].gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime+0.4); //fade it out (also to prevent clicky sounds)
-    oscillators[keycode].stop(ctx.currentTime + 0.8);                                //Stop playing the sound.
+    oscillators[keycode].stop(ctx.currentTime + 0.8);                             //Stop playing the sound.
     for (let i = 0; i < timbreFreq.length; i++) {
         oscillators[keycode,i].stop(ctx.currentTime + 0.8);
     }
@@ -538,23 +539,23 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
             <legend>Waveform Shape</legend>
 
             <div>
-            <input type="radio" id="sine" name="wavetype" value="sine" onclick='wavetype = "sine";'
+            <input type="radio" id="sine" name="wavetype" value="sine" onclick='wavetype = "sine"; defaultGain = 0.1;'
                     checked>
             <label for="sine">sine</label>
             </div>
 
             <div>
-            <input type="radio" id="square" name="wavetype" value="square" onclick='wavetype = "square";'>
+            <input type="radio" id="square" name="wavetype" value="square" onclick='wavetype = "square"; defaultGain = 0.05;'>
             <label for="square">square</label>
             </div>
 
             <div>
-            <input type="radio" id="sawtooth" name="wavetype" value="sawtooth" onclick='wavetype = "sawtooth";'>
+            <input type="radio" id="sawtooth" name="wavetype" value="sawtooth" onclick='wavetype = "sawtooth"; defaultGain = 0.05;'>
             <label for="sawtooth">sawtooth</label>
             </div>
 
             <div>
-            <input type="radio" id="triangle" name="wavetype" value="triangle" onclick='wavetype = "triangle";'>
+            <input type="radio" id="triangle" name="wavetype" value="triangle" onclick='wavetype = "triangle"; defaultGain = 0.1;'>
             <label for="triangle">triangle</label>
             </div>
         </fieldset>
