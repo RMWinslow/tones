@@ -381,15 +381,10 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
         <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-menu"></use></svg>
       </a>
     </div>
-    <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">
-      
-        <p>This is a test. Just putting stuff here.</p>
+    <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav" style="padding-top: 1rem;">
 
         <fieldset>
-          
-          <button style='font-family:inherit;' onclick='wavetype = "square";'>Square</button>
-     
-            <legend>Select a maintenance drone:</legend>
+            <legend>Waveform Shape</legend>
 
             <div>
             <input type="radio" id="sine" name="wavetype" value="sine" onclick='wavetype = "sine";'
@@ -410,6 +405,47 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
             <div>
             <input type="radio" id="triangle" name="wavetype" value="triangle" onclick='wavetype = "triangle";'>
             <label for="triangle">triangle</label>
+            </div>
+        </fieldset>
+      
+      
+        <fieldset>
+            <legend>Keyboard Layout</legend>
+
+            <div>
+            <input type="radio" id="qwerty12" name="keyboardlayout" value="qwerty12" onclick=''
+                    checked>
+            <label for="qwerty12">12 Key Qwerty</label>
+            </div>
+
+            <div>
+            <input type="radio" id="qwerty8" name="keyboardlayout" value="qwerty8" onclick=''>
+            <label for="qwerty8">8 Key Qwerty</label>
+            </div>
+
+            <div>
+            <input type="radio" id="wicki" name="keyboardlayout" value="wicki" onclick=''>
+            <label for="wicki">Isomorphic - Wicki</label>
+            </div>
+
+            <div>
+            <input type="radio" id="euler" name="keyboardlayout" value="euler" onclick=''>
+            <label for="euler">Isomorphic - Euler</label>
+            </div>
+        </fieldset>
+      
+        <fieldset>
+            <legend>Tuning</legend>
+
+            <div>
+            <input type="radio" id="equal" name="keyboardlayout" value="equal" onclick=''
+                    checked>
+            <label for="equal">Equal Temperment</label>
+            </div>
+
+            <div>
+            <input type="radio" id="fiveprime" name="keyboardlayout" value="fiveprime" onclick=''>
+            <label for="fiveprime">5-Prime-Limit</label>
             </div>
         </fieldset>
 
