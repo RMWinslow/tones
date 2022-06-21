@@ -335,6 +335,76 @@ KeyToNote_12KeyErgonomic = {
     Numpad9: 'D5',
 };
 
+KeyToNote_IsomorphicWicki = {
+    Digit1: 'bE4',
+    Digit2: 'F4',
+    Digit3: 'G4',
+    Digit4: 'A4',
+    Digit5: 'B4',
+    Digit6: 'bD5',
+    Digit7: 'bE5',
+    Digit8: 'F5',
+    Digit9: 'G5',
+    Digit0: 'A5',
+    Minus: 'B5',
+    Equal: 'bD6',
+    Backspace: 'bE6',
+    
+    KeyQ: 'bB3',
+    KeyW: 'C4',
+    KeyE: 'D4',
+    KeyR: 'E4',
+    KeyT: 'bG4',
+    KeyY: 'bA4',
+    KeyU: 'bB4',
+    KeyI: 'C5',
+    KeyO: 'D5',
+    KeyP: 'E5',
+    BracketLeft: 'bG5',
+    BracketRight: 'bA5',
+    Backslash: 'bB5',
+    
+    KeyA: 'F3',
+    KeyS: 'G3',
+    KeyD: 'A3',
+    KeyF: 'B3',
+    KeyG: 'bD4',
+    KeyH: 'bE4',
+    KeyJ: 'F4',
+    KeyK: 'G4',
+    KeyL: 'A4',
+    Semicolon: 'B4',
+    Quote: 'bD5',
+    Enter: 'bE5',
+    
+    ShiftLeft: 'bB2',
+    KeyZ: 'C3',
+    KeyX: 'D3',
+    KeyC: 'E3',
+    KeyV: 'bG3',
+    KeyB: 'bA3',
+    KeyN: 'bB3',
+    KeyM: 'C4',
+    Comma: 'D4',
+    Period: 'E4',
+    Slash: 'bG4',
+    ShiftRight: 'bA4',
+    
+    Numpad0: 'B3',
+    Numpad4: 'F4',
+    Numpad5: 'G4',
+    Numpad6: 'A4',
+    Numpad1: 'C4',
+    Numpad2: 'D4',
+    Numpad3: 'E4',
+    NumpadEnter: 'B4',
+    Numpad7: 'B4',
+    Numpad8: 'C5',
+    Numpad9: 'D5',
+};
+  
+  
+  
 var KeyToNote = KeyToNote_12KeyErgonomic;
 var NoteToFreq = NoteToFrequency_EqualTemperment;
 var wavetype = "sine";
@@ -496,13 +566,13 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
             <legend>Keyboard Layout</legend>
 
             <div>
-            <input type="radio" id="qwerty12" name="keyboardlayout" value="qwerty12" onclick=''
+            <input type="radio" id="qwerty12" name="keyboardlayout" value="qwerty12" onclick='KeyToNote = KeyToNote_12KeyErgonomic;'
                     checked>
             <label for="qwerty12">12 Key Qwerty</label>
             </div>
 
             <div>
-            <input type="radio" id="qwerty8" name="keyboardlayout" value="qwerty8" onclick=''>
+            <input type="radio" id="qwerty8" name="keyboardlayout" value="qwerty8" onclick='KeyToNote = KeyToNote_IsomorphicWicki'>
             <label for="qwerty8">8 Key Qwerty</label>
             </div>
 
