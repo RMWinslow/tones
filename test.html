@@ -330,6 +330,75 @@ KeyToNote_12KeyErgonomic = {
     Numpad8: 'C5',
     Numpad9: 'D5',
 };
+  
+KeyToNote_8KeyQwerty = {
+    Backquote: 'F2',
+    Digit1: 'C3',
+    Digit2: 'F3',
+    Digit3: 'C4',
+    Digit4: 'F4',
+    Digit5: 'C5',
+    Digit6: 'F5',
+    Digit7: 'C6',
+    Digit8: 'F6',
+    Digit9: 'C7',
+    Digit0: 'F7',
+    Minus: 'C8',
+    Equal: 'F8',
+    Backspace: 'C9',
+    
+    KeyQ: 'D3',
+    KeyW: 'G3',
+    KeyE: 'D4',
+    KeyR: 'G4',
+    KeyT: 'D5',
+    KeyY: 'G5',
+    KeyU: 'D6',
+    KeyI: 'G6',
+    KeyO: 'D7',
+    KeyP: 'G7',
+    BracketLeft: 'D8',
+    BracketRight: 'G8',
+    Backslash: 'D9',
+    
+    KeyA: 'E3',
+    KeyS: 'A3',
+    KeyD: 'E4',
+    KeyF: 'A4',
+    KeyG: 'E5',
+    KeyH: 'A5',
+    KeyJ: 'E6',
+    KeyK: 'A6',
+    KeyL: 'E7',
+    Semicolon: 'A7',
+    Quote: 'E8',
+    Enter: 'A8',
+    
+    ShiftLeft: 'B2',
+    KeyZ: 'bG3',
+    KeyX: 'B3',
+    KeyC: 'bG4',
+    KeyV: 'B4',
+    KeyB: 'bG5',
+    KeyN: 'B5',
+    KeyM: 'bG6',
+    Comma: 'B6',
+    Period: 'bG7',
+    Slash: 'B7',
+    ShiftRight: 'B8',
+    
+    Numpad0: 'B3',
+    Numpad4: 'F4',
+    Numpad5: 'G4',
+    Numpad6: 'A4',
+    Numpad1: 'C4',
+    Numpad2: 'D4',
+    Numpad3: 'E4',
+    NumpadEnter: 'B4',
+    Numpad7: 'B4',
+    Numpad8: 'C5',
+    Numpad9: 'D5',
+};
 
 KeyToNote_IsomorphicWicki = {
     Digit1: 'bE4',
@@ -643,7 +712,7 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
             </div>
 
             <div>
-            <input type="radio" id="qwerty8" name="keyboardlayout" value="qwerty8" onclick=''>
+            <input type="radio" id="qwerty8" name="keyboardlayout" value="qwerty8" onclick='KeyToNote = KeyToNote_8KeyQwerty; changeKeyboardImage("kb-cramp");'>
             <label for="qwerty8">8 Key Qwerty</label>
             </div>
 
