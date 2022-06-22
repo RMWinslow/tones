@@ -399,6 +399,75 @@ KeyToNote_IsomorphicWicki = {
     Numpad9: 'D5',
 };
   
+KeyToNote_IsomorphicEuler = {
+    Backquote: 'D3',
+    Digit1: 'bG3',
+    Digit2: 'bB3',
+    Digit3: 'D4',
+    Digit4: 'bG4',
+    Digit5: 'bB4',
+    Digit6: 'D5',
+    Digit7: 'bG5',
+    Digit8: 'bB5',
+    Digit9: 'D6',
+    Digit0: 'bG6',
+    Minus: 'bB6',
+    Equal: 'D7',
+    Backspace: 'bG7',
+    
+    KeyQ: 'bE3',
+    KeyW: 'G3',
+    KeyE: 'B3',
+    KeyR: 'bE4',
+    KeyT: 'G4',
+    KeyY: 'B4',
+    KeyU: 'bE5',
+    KeyI: 'G5',
+    KeyO: 'B5',
+    KeyP: 'bE6',
+    BracketLeft: 'G6',
+    BracketRight: 'B6',
+    Backslash: 'bE7',
+    
+    KeyA: 'C3',
+    KeyS: 'E3',
+    KeyD: 'bA3',
+    KeyF: 'C4',
+    KeyG: 'E4',
+    KeyH: 'bA4',
+    KeyJ: 'C5',
+    KeyK: 'E5',
+    KeyL: 'bA5',
+    Semicolon: 'C6',
+    Quote: 'E6',
+    Enter: 'bA6',
+    
+    ShiftLeft: 'F2',
+    KeyZ: 'A2',
+    KeyX: 'bD3',
+    KeyC: 'F3',
+    KeyV: 'A3',
+    KeyB: 'bD4',
+    KeyN: 'F4',
+    KeyM: 'A4',
+    Comma: 'bD5',
+    Period: 'F5',
+    Slash: 'A5',
+    ShiftRight: 'bD6',
+    
+    Numpad0: 'B3',
+    Numpad4: 'F4',
+    Numpad5: 'G4',
+    Numpad6: 'A4',
+    Numpad1: 'C4',
+    Numpad2: 'D4',
+    Numpad3: 'E4',
+    NumpadEnter: 'B4',
+    Numpad7: 'B4',
+    Numpad8: 'C5',
+    Numpad9: 'D5',
+};
+  
 function changeKeyboardImage(filename){
     document.getElementById('kbimageHolder').innerHTML = '<img src="/tones/img/'+filename+'.svg" alt="An svg depicting a qwerty keyboard, color-coded and labelled to show what note each button plays." />';
 }
@@ -581,7 +650,7 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
             </div>
 
             <div>
-            <input type="radio" id="euler" name="keyboardlayout" value="euler" onclick=''>
+            <input type="radio" id="euler" name="keyboardlayout" value="euler" onclick='KeyToNote = KeyToNote_IsomorphicEuler; changeKeyboardImage("kb-euler");'>
             <label for="euler">Isomorphic - Euler</label>
             </div>
         </fieldset>
