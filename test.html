@@ -744,12 +744,12 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
 
             <div>
             <input type="radio" id="wicki" name="keyboardlayout" value="wicki" onclick='KeyToNote = KeyToNote_IsomorphicWicki; changeKeyboardImage("kb-wicki");'>
-            <label for="wicki">Isomorphic - Wicki (<a href="https://en.wikipedia.org/wiki/Isomorphic_keyboard">ℹ️</a>)</label>
+            <label for="wicki">Isomorphic - Wicki (<a href="https://en.wikipedia.org/wiki/Isomorphic_keyboard">info</a>)</label>
             </div>
 
             <div>
             <input type="radio" id="euler" name="keyboardlayout" value="euler" onclick='KeyToNote = KeyToNote_IsomorphicEuler; changeKeyboardImage("kb-euler");'>
-            <label for="euler">Isomorphic - Euler (<a href="https://en.wikipedia.org/wiki/Tonnetz">ℹ️</a>)</label>
+            <label for="euler">Isomorphic - Euler (<a href="https://en.wikipedia.org/wiki/Tonnetz">ℹ</a>)</label>
             </div>
         </fieldset>
       
@@ -764,7 +764,7 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
 
             <div>
             <input type="radio" id="fiveprime" name="tuning" value="fiveprime" onclick='NoteToFreq = NoteToFrequency_FivePrimeLimitAsymmetric;'>
-            <label for="fiveprime">5-Prime-Limit</label>
+            <label for="fiveprime">Asymmetric 5-Prime-Limit</label>
             </div>
         </fieldset>
 
@@ -798,26 +798,34 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
       
       <div id="main-content" class="main-content" role="main">
         
-          <p>There are lots of online keyboard pianos out there, but I wanted one where:</p>
+<h1>Type to Play Music.</h1>
+        
 
+
+
+<div id="kbimageHolder"><img src="/tones/img/kb-notes.svg" alt="An svg depicting a qwerty keyboard, color-coded and labelled to show what note each button plays." /></div>
+
+
+        
+<p>There are lots of online keyboard pianos out there, but I wanted one where:</p>
 <ol>
   <li>The sounds are pure tones - sine waves - so I can play around with harmonics.</li>
   <li>The sounds are sustained as long as the key is held down.</li>
   <li>The notes are laid out in a way that “feels right” on a qwerty keyboard, instead of just trying to copy the layout of a piano.</li>
 </ol>
-
-<div id="kbimageHolder"><img src="/tones/img/kb-notes.svg" alt="An svg depicting a qwerty keyboard, color-coded and labelled to show what note each button plays." /></div>
-
-<p>Keyboard svg modified from <a href="https://commons.wikimedia.org/wiki/File:ANSI_US_QWERTY_(Windows)_Enter_Return.svg">here</a>.</p>
-
-<p>This works best in Chrome, using a keyboard with n-key rollover.</p>
-
+<hr>
         
+<p>For best results, use the following:
+<ul>
+  <li>a Chromium browser, like Edge, Brave, or Chrome (for the beeps to sound right)</li>
+  <li>a keyboard with n-key rollover (a standard laptop keyboard won't be able to play certain chords)</li>
+  <li>a US QWERTY keyboard (lest all the buttons lie in the wrong places)</li>
+</ul>
 
-        
 
-        
-        
+
+<hr>
+<small>Keyboard svg modified from <a href="https://commons.wikimedia.org/wiki/File:ANSI_US_QWERTY_(Windows)_Enter_Return.svg">here</a>.</small>
 
       </div>
     </div>
