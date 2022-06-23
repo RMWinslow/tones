@@ -645,7 +645,7 @@ window.onkeydown = function(event){ 								//Whenever a key is pressed:
 
 window.onkeyup = function(event){ 									//Whenever a key is released:	
     keycode = event.code;									
-    if (KeyToFreq(keycode)){													//If the key is part of the piano:
+    if (keyflags[keycode]){													//If the key is currently playing
     console.log("UP " + keycode);												//Log which key is let up.
         keyflags[keycode] = 0;														//Remove it's flag to indicate that it isn't being held down anymore.
         terminateNote(keycode)
