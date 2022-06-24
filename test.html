@@ -304,7 +304,7 @@ KeyToNote_12KeyErgonomic = {
     Equal: 'bA6',
     Backspace: 'bB6',
     
-    Tab: 'A1',    
+    Tab: 'A2',    
     KeyQ: 'F3',
     KeyW: 'G3',
     KeyE: 'A3',
@@ -785,7 +785,7 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
             <label for="principleAdjuster">Frequency of <span style="background-color: #66ff66; color: black;">A4</span>: </label>
             <input type="number" id="principleAdjuster" name="principleAdjuster"
                 value="440" min="10" max="1000"
-                onchange='principleAdjustment = this.value / 440;'>
+                onchange='principleAdjustment = this.value / principle;'>
             </div>
         </fieldset>
 
