@@ -645,7 +645,8 @@ window.onkeydown = function(event){ 								//Whenever a key is pressed:
         } else {
             return 0;                           //When box is not checked, prevent Tab from triggering notes (lest the notes get 'stuck on' when focus changes to the url bar.)
         }
-
+    }
+      
     if (! keyflags[keycode] && KeyToFreq(keycode)){								//If the key is part of the piano, and isn't just being held down:
         keyflags[keycode] = 1;														//Set a flag to indicate this key is being held down.
         initiateNote(keycode);
