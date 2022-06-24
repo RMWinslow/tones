@@ -573,9 +573,11 @@ var wavetype = "sine";
 var defaultGain = 0.1; //Square and sawtooth waves are louder than sine and triangle waves. So need to have different 0.05 gain instead.
 var captureTab = false; // If true, then Tab will be used as note input instead of navigation. Disabled by default for accessibility
 
+var principleAdjustment = 1;
+
 function KeyToFreq(keycode){
     if (KeyToNote[keycode] && NoteToFreq[KeyToNote[keycode]]){
-        return NoteToFreq[KeyToNote[keycode]];
+        return NoteToFreq[KeyToNote[keycode]] * principleAdjustment;
     } else {
         return false;
     }
@@ -774,10 +776,12 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
             <label for="fiveprime">Asymmetric 5-Prime-Limit</label>
             </div>
 
-            Frequency of A4: 
-            <input type="number" id="principle" name="principle"
+            <div>
+            <label for="principleAdjuster">Frequency of <span style="background-color: #66ff66; color: black;">A4</span>: </label>
+            <input type="number" id="principleAdjuster" name="principleAdjuster"
                 value="440" min="10" max="1000"
-                onclick='alert("hello there")'>
+                onchange='principleAdjustment = this.value / 440;'>
+            </div>
         </fieldset>
 
         <div title="If checked, the Tab key will play a note. If unchecked, the Tab key will cycle focus between selectable elements, as normal. This is unchecked by default for accessibility reasons.">
