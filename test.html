@@ -700,7 +700,7 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
         <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-menu"></use></svg>
       </a>
     </div>
-    <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav" style="padding-top: 1rem;">
+    <form role="navigation" aria-label="Main" id="site-nav" class="site-nav" style="padding-top: 1rem;">
 
         <fieldset>
             <legend>Waveform Shape</legend>
@@ -766,16 +766,18 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
             <input type="radio" id="fiveprime" name="tuning" value="fiveprime" onclick='NoteToFreq = NoteToFrequency_FivePrimeLimitAsymmetric;'>
             <label for="fiveprime">Asymmetric 5-Prime-Limit</label>
             </div>
+
+            Frequency of A4: 
+            <input type="number" id="principle" name="principle"
+                value="440" min="10" max="1000"
+                onclick='alert("hello there")'>
         </fieldset>
 
 
         <hr>
 
       
-    </nav>
-    <footer class="site-footer">
-      
-    </footer>
+    </form>
   </div>
   <div class="main" id="top">
     <div id="main-header" class="main-header">
