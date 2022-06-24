@@ -304,6 +304,7 @@ KeyToNote_12KeyErgonomic = {
     Equal: 'bA6',
     Backspace: 'bB6',
     
+    Tab: 'A1',    
     KeyQ: 'F3',
     KeyW: 'G3',
     KeyE: 'A3',
@@ -373,6 +374,7 @@ KeyToNote_8KeyQwerty = {
     Equal: 'F7',
     Backspace: 'C9',
     
+    Tab: 'G1',      
     KeyQ: 'D2',
     KeyW: 'G2',
     KeyE: 'D3',
@@ -441,6 +443,7 @@ KeyToNote_IsomorphicWicki = {
     Equal: 'bD6',
     Backspace: 'bE6',
     
+    Tab: 'bA3',    
     KeyQ: 'bB3',
     KeyW: 'C4',
     KeyE: 'D4',
@@ -510,6 +513,7 @@ KeyToNote_IsomorphicEuler = {
     Equal: 'D7',
     Backspace: 'bG7',
     
+    Tab: 'B2',    
     KeyQ: 'bE3',
     KeyW: 'G3',
     KeyE: 'B3',
@@ -759,7 +763,7 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
 
             <div>
             <input type="radio" id="euler" name="keyboardlayout" value="euler" onclick='KeyToNote = KeyToNote_IsomorphicEuler; changeKeyboardImage("kb-euler");'>
-            <label for="euler">Isomorphic - Euler (<a href="https://en.wikipedia.org/wiki/Tonnetz">ℹ</a>)</label>
+            <label for="euler">Isomorphic - Euler (<a href="https://en.wikipedia.org/wiki/Tonnetz">info</a>)</label>
             </div>
         </fieldset>
       
@@ -785,7 +789,7 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
             </div>
         </fieldset>
 
-        <div title="If checked, the Tab key will play a note. If unchecked, the Tab key will cycle focus between selectable elements, as normal. This is unchecked by default for accessibility reasons.">
+        <div style="padding: 0.5rem;" title="If checked, the Tab key will play a note. If unchecked, the Tab key will cycle focus between selectable elements, as normal. This is unchecked by default for accessibility reasons.">
         <input type="checkbox" id="coding" name="interest" value="coding" onclick='captureTab = this.checked'>
         <label for="coding">Capture Tab key input?</label>
         </div>
