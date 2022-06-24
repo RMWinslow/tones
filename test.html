@@ -571,6 +571,7 @@ var KeyToNote = KeyToNote_12KeyErgonomic;
 var NoteToFreq = NoteToFrequency_EqualTemperment;
 var wavetype = "sine";
 var defaultGain = 0.1; //Square and sawtooth waves are louder than sine and triangle waves. So need to have different 0.05 gain instead.
+var captureTab = false; // If true, then Tab will be used as note input instead of navigation. Disabled by default for accessibility
 
 function KeyToFreq(keycode){
     if (KeyToNote[keycode] && NoteToFreq[KeyToNote[keycode]]){
@@ -616,9 +617,9 @@ function initiateNote(keycode){
 }
 var sustain = 0.2
 function terminateNote(keycode){
-    gains[keycode].gain.value = defaultGain;                                        //restablish the volume level or else it will make clicky sounds
+    gains[keycode].gain.value = defaultGain;                                            //restablish the volume level or else it will make clicky sounds
     gains[keycode].gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime+sustain); //fade it out (also to prevent clicky sounds)
-    oscillators[keycode].stop(ctx.currentTime + sustain+0.01);                             //Stop playing the sound.
+    oscillators[keycode].stop(ctx.currentTime + sustain+0.01);                        //Stop playing the sound.
     //gains[keycode].disconnect(ctx.currentTime + sustain+0.05);
     for (let i = 0; i < timbreFreq.length; i++) {
         oscillators[keycode,i].stop(ctx.currentTime+sustain+0.01);
@@ -634,10 +635,16 @@ function terminateNote(keycode){
 window.onkeydown = function(event){ 								//Whenever a key is pressed:						
     keycode = event.code;
 
-    if (keycode == "Tab"){return 0};
+    console.log("DOWN "+keycode+": "+KeyToFreq(keycode)+" Hz"+" "+KeyToNote[keycode]);						//Log which key is pressed
+
+    if (keycode == "Tab"){                                      
+        if (captureTab){
+            event.preventDefault();             //When box is checked, block the Tab navigation behavior.
+        } else {
+            return 0;                           //When box is not checked, prevent Tab from triggering notes (lest the notes get 'stuck on' when focus changes to the url bar.)
+        }
 
     if (! keyflags[keycode] && KeyToFreq(keycode)){								//If the key is part of the piano, and isn't just being held down:
-        console.log("DOWN "+keycode+": "+KeyToFreq(keycode)+" Hz"+" "+KeyToNote[keycode]);						//Log which key is pressed
         keyflags[keycode] = 1;														//Set a flag to indicate this key is being held down.
         initiateNote(keycode);
     }
@@ -773,6 +780,12 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
                 onclick='alert("hello there")'>
         </fieldset>
 
+        <div title="If checked, the Tab key will play a note. If unchecked, the Tab key will cycle focus between selectable elements, as normal. This is unchecked by default for accessibility reasons.">
+        <input type="checkbox" id="coding" name="interest" value="coding" onclick='captureTab = this.checked'>
+        <label for="coding">Capture Tab key input?</label>
+        </div>
+
+
 
         <hr>
 
@@ -807,7 +820,8 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
 
 <div id="kbimageHolder"><img src="/tones/img/kb-notes.svg" alt="An svg depicting a qwerty keyboard, color-coded and labelled to show what note each button plays." /></div>
 
-
+<br>
+<textarea id='a nice little place for your mouse to take a break' placeholder="This text area is here just in case you want to record your keystrokes."></textarea>
         
 <p>There are lots of online keyboard pianos out there, but I wanted one where:</p>
 <ol>
