@@ -574,7 +574,6 @@ function changeKeyboardImage(filename){
 var KeyToNote = KeyToNote_12KeyErgonomic;
 var NoteToFreq = NoteToFrequency_EqualTemperment;
 var wavetype = "sine";
-function updatewavetype(newwavetype){wavetype = newwavetype; console.log(newwavetype);}
 var defaultGain = 0.1; //Square and sawtooth waves are louder than sine and triangle waves. So need to have different 0.05 gain instead.
 var captureTab = false; // If true, then Tab will be used as note input instead of navigation. Disabled by default for accessibility
 
@@ -715,29 +714,29 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
         <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-menu"></use></svg>
       </a>
     </div>
-    <form role="navigation" aria-label="Main" id="site-nav" class="site-nav" style="padding-top: 1rem;">
+    <div role="navigation" aria-label="Main" id="site-nav" class="site-nav" style="padding-top: 1rem;">
 
         <fieldset>
             <legend>Waveform Shape</legend>
 
             <div>
-            <input type="radio" id="sine" name="wavetype" value="sine" onclick='updatewavetype("sine"); defaultGain = 0.1;'
+            <input type="radio" id="sine" name="wavetype" value="sine" onclick='wavetype="sine"; defaultGain = 0.1;'
                     checked>
             <label for="sine">sine</label>
             </div>
 
             <div>
-            <input type="radio" id="square" name="wavetype" value="square" onclick='updatewavetype("square"); defaultGain = 0.05;'>
+            <input type="radio" id="square" name="wavetype" value="square" onclick='wavetype="square"; defaultGain = 0.05;'>
             <label for="square">square</label>
             </div>
 
             <div>
-            <input type="radio" id="sawtooth" name="wavetype" value="sawtooth" onclick='updatewavetype("sawtooth"); defaultGain = 0.06;'>
+            <input type="radio" id="sawtooth" name="wavetype" value="sawtooth" onclick='wavetype="sawtooth"; defaultGain = 0.06;'>
             <label for="sawtooth">sawtooth</label>
             </div>
 
             <div>
-            <input type="radio" id="triangle" name="wavetype" value="triangle" onclick='updatewavetype("triangle"); defaultGain = 0.1;'>
+            <input type="radio" id="triangle" name="wavetype" value="triangle" onclick='wavetype="triangle"; defaultGain = 0.1;'>
             <label for="triangle">triangle</label>
             </div>
         </fieldset>
@@ -800,7 +799,7 @@ window.onkeyup = function(event){ 									//Whenever a key is released:
         <hr>
 
       
-    </form>
+    </div>
   </div>
   <div class="main" id="top">
     <div id="main-header" class="main-header">
