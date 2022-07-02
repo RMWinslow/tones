@@ -623,6 +623,7 @@ var defaultGain = 0.1;  //Square and sawtooth waves are louder than sine and tri
 var captureTab = false; // If true, then Tab will be used as note input instead of navigation. Disabled by default for accessibility
 
 var releasetime = 0.2 // How long should the note last after the key is let up?
+var attacktime = 0 // How long should the note last after the key is let up?
 var principleAdjustment = 1; //User can tune it so A4 isn't 440hz
 
 function KeyToFreq(keycode){
@@ -643,8 +644,9 @@ function initiateNote(keycode){
     oscillators[keycode].connect(gains[keycode]);                //Connect the components
     gains[keycode].connect(ctx.destination)
     
+    gains[keycode].gain.value = 0;                                //Keep it quiet so it doesn't blow out the speakers.
     oscillators[keycode].start(0);                               //Start playing the sound.
-    gains[keycode].gain.value = defaultGain;                    //But keep it quiet so it doesn't blow out the speakers.
+    gains[keycode].gain.linearRampToValueAtTime(defaultGain, ctx.currentTime + attacktime);
     
 }
 function terminateNote(keycode){
@@ -759,13 +761,6 @@ window.onkeyup = function(event){          //Whenever a key is released:
         <input type="radio" id="triangle" name="wavetype" value="triangle" onclick='wavetype="triangle"; defaultGain = 0.1;'>
         <label for="triangle">triangle</label>
         </div>
-
-        <div>
-        <label for="releasetimeAdjuster">Note Release Time (ms): </label>
-        <input type="number" id="releasetimeAdjuster" name="releasetimeAdjuster"
-            value="200" min="10" max="10000"
-            onchange='releasetime = this.value / 1000;'>
-        </div>
     </fieldset>
 
 
@@ -816,6 +811,25 @@ window.onkeyup = function(event){          //Whenever a key is released:
         </div>
     </fieldset>
 
+    <fieldset>
+      <legend>Volume Envelope</legend>
+      
+        <div>
+        <label for="attacktimeAdjuster">Attack Time (ms): </label>
+        <input type="number" id="attacktimeAdjuster" name="attacktimeAdjuster"
+            value="200" min="0" max="10000"
+            onchange='attacktime = this.value / 1000;'>
+        </div>     
+      
+        <div>
+        <label for="releasetimeAdjuster">Release Time (ms): </label>
+        <input type="number" id="releasetimeAdjuster" name="releasetimeAdjuster"
+            value="0" min="10" max="10000"
+            onchange='releasetime = this.value / 1000;'>
+        </div>   
+    </fieldset>
+  
+  
     <div style="padding: 0.5rem;" title="If checked, the Tab key will play a note. If unchecked, the Tab key will cycle focus between selectable elements, as normal. This is unchecked by default for accessibility reasons.">
     <input type="checkbox" id="coding" name="interest" value="coding" onclick='captureTab = this.checked'>
     <label for="coding">Capture Tab key input?</label>
