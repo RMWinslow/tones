@@ -10,29 +10,21 @@
 
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  
-    <title>Home - Pure Tones</title>
+<title>Pure Tones - QWERTY Keyboard Piano</title>
 
-    
-  
+<link rel="shortcut icon" href="/tones/assets/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/tones/assets/css/compiled-jtd-style.css">
 
-  <link rel="shortcut icon" href="/tones/assets/favicon.ico" type="image/x-icon">
 
-  <link rel="stylesheet" href="/tones/assets/css/compiled-jtd-style.css">
+<script type="text/javascript" src="/tones/assets/js/vendor/lunr.min.js"></script>  
+<script type="text/javascript" src="/tones/assets/js/just-the-docs.js"></script>
 
-  
 
-  
-    <script type="text/javascript" src="/tones/assets/js/vendor/lunr.min.js"></script>
-  
-  <script type="text/javascript" src="/tones/assets/js/just-the-docs.js"></script>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Home | Pure Tones</title>
 <meta name="generator" content="Jekyll v3.9.2" />
 <meta property="og:title" content="Home" />
@@ -692,211 +684,194 @@ window.onkeyup = function(event){          //Whenever a key is released:
 }; 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 </script>
-
-
 </head>
 
   
   
   
 <body>
-  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-    <symbol id="svg-link" viewBox="0 0 24 24">
-      <title>Link</title>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
-        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-      </svg>
-    </symbol>
-    <symbol id="svg-search" viewBox="0 0 24 24">
-      <title>Search</title>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
-        <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-      </svg>
-    </symbol>
-    <symbol id="svg-menu" viewBox="0 0 24 24">
-      <title>Menu</title>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
-        <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
-      </svg>
-    </symbol>
-    <symbol id="svg-arrow-right" viewBox="0 0 24 24">
-      <title>Expand</title>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
-        <polyline points="9 18 15 12 9 6"></polyline>
-      </svg>
-    </symbol>
-    <symbol id="svg-doc" viewBox="0 0 24 24">
-      <title>Document</title>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
-        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
-      </svg>
-    </symbol>
-  </svg>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+    <title>Link</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+    </svg>
+  </symbol>
+  <symbol id="svg-search" viewBox="0 0 24 24">
+    <title>Search</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+      <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-doc" viewBox="0 0 24 24">
+    <title>Document</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+      <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+    </svg>
+  </symbol>
+</svg>
 
-  <div class="side-bar">
-    <div class="site-header">
-      <a href="http://www.rmwinslow.com/tones/" class="site-title lh-tight">
-  Pure Tones
+<div class="side-bar">
+<div class="site-header">
+  <a href="http://www.rmwinslow.com/tones/" class="site-title lh-tight">
+    Pure Tones
+  </a>
+  <a href="#" id="menu-button" class="site-button">
+  <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-menu"></use></svg>
+  </a>
+</div>
+    
+    
+<div role="form" aria-label="Main" id="site-nav" class="site-nav" style="padding-top: 1rem;">
 
-</a>
-      <a href="#" id="menu-button" class="site-button">
-        <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-menu"></use></svg>
-      </a>
-    </div>
-    <div role="navigation" aria-label="Main" id="site-nav" class="site-nav" style="padding-top: 1rem;">
+    <fieldset>
+        <legend>Waveform Shape</legend>
 
-        <fieldset>
-            <legend>Waveform Shape</legend>
-
-            <div>
-            <input type="radio" id="sine" name="wavetype" value="sine" onclick='wavetype="sine"; defaultGain = 0.1;'
-                    checked>
-            <label for="sine">sine</label>
-            </div>
-
-            <div>
-            <input type="radio" id="square" name="wavetype" value="square" onclick='wavetype="square"; defaultGain = 0.05;'>
-            <label for="square">square</label>
-            </div>
-
-            <div>
-            <input type="radio" id="sawtooth" name="wavetype" value="sawtooth" onclick='wavetype="sawtooth"; defaultGain = 0.06;'>
-            <label for="sawtooth">sawtooth</label>
-            </div>
-
-            <div>
-            <input type="radio" id="triangle" name="wavetype" value="triangle" onclick='wavetype="triangle"; defaultGain = 0.1;'>
-            <label for="triangle">triangle</label>
-            </div>
-          
-            <div>
-            <label for="releasetimeAdjuster">Note Release Time (ms): </label>
-            <input type="number" id="releasetimeAdjuster" name="releasetimeAdjuster"
-                value="200" min="10" max="10000"
-                onchange='releasetime = this.value / 1000;'>
-            </div>
-        </fieldset>
-      
-      
-        <fieldset>
-            <legend>Keyboard Layout</legend>
-
-            <div>
-            <input type="radio" id="qwerty12" name="keyboardlayout" value="qwerty12" onclick='KeyToNote = KeyToNote_12KeyErgonomic; changeKeyboardImage("kb-notes");'
-                    checked>
-            <label for="qwerty12">12 Key Qwerty</label>
-            </div>
-
-            <div>
-            <input type="radio" id="qwerty8" name="keyboardlayout" value="qwerty8" onclick='KeyToNote = KeyToNote_8KeyQwerty; changeKeyboardImage("kb-cramp");'>
-            <label for="qwerty8">8 Key Qwerty</label>
-            </div>
-
-            <div>
-            <input type="radio" id="wicki" name="keyboardlayout" value="wicki" onclick='KeyToNote = KeyToNote_IsomorphicWicki; changeKeyboardImage("kb-wicki");'>
-            <label for="wicki">Isomorphic - Wicki (<a href="https://en.wikipedia.org/wiki/Isomorphic_keyboard">info</a>)</label>
-            </div>
-
-            <div>
-            <input type="radio" id="euler" name="keyboardlayout" value="euler" onclick='KeyToNote = KeyToNote_IsomorphicEuler; changeKeyboardImage("kb-euler");'>
-            <label for="euler">Isomorphic - Euler (<a href="https://en.wikipedia.org/wiki/Tonnetz">info</a>)</label>
-            </div>
-        </fieldset>
-      
-        <fieldset>
-            <legend>Tuning</legend>
-
-            <div>
-            <input type="radio" id="equal" name="tuning" value="equal" onclick='NoteToFreq = NoteToFrequency_EqualTemperment;'
-                    checked>
-            <label for="equal">Equal Temperment</label>
-            </div>
-
-            <div>
-            <input type="radio" id="fiveprime" name="tuning" value="fiveprime" onclick='NoteToFreq = NoteToFrequency_FivePrimeLimitAsymmetric;'>
-            <label for="fiveprime">Asymmetric 5-Prime-Limit</label>
-            </div>
-
-            <div>
-            <label for="principleAdjuster">Frequency of <span style="background-color: #66ff66; color: black;">A4</span>: </label>
-            <input type="number" id="principleAdjuster" name="principleAdjuster"
-                value="440" min="10" max="1000"
-                onchange='principleAdjustment = this.value / principle;'>
-            </div>
-        </fieldset>
-
-        <div style="padding: 0.5rem;" title="If checked, the Tab key will play a note. If unchecked, the Tab key will cycle focus between selectable elements, as normal. This is unchecked by default for accessibility reasons.">
-        <input type="checkbox" id="coding" name="interest" value="coding" onclick='captureTab = this.checked'>
-        <label for="coding">Capture Tab key input?</label>
+        <div>
+        <input type="radio" id="sine" name="wavetype" value="sine" onclick='wavetype="sine"; defaultGain = 0.1;'
+                checked>
+        <label for="sine">sine</label>
         </div>
 
+        <div>
+        <input type="radio" id="square" name="wavetype" value="square" onclick='wavetype="square"; defaultGain = 0.05;'>
+        <label for="square">square</label>
+        </div>
+
+        <div>
+        <input type="radio" id="sawtooth" name="wavetype" value="sawtooth" onclick='wavetype="sawtooth"; defaultGain = 0.06;'>
+        <label for="sawtooth">sawtooth</label>
+        </div>
+
+        <div>
+        <input type="radio" id="triangle" name="wavetype" value="triangle" onclick='wavetype="triangle"; defaultGain = 0.1;'>
+        <label for="triangle">triangle</label>
+        </div>
+
+        <div>
+        <label for="releasetimeAdjuster">Note Release Time (ms): </label>
+        <input type="number" id="releasetimeAdjuster" name="releasetimeAdjuster"
+            value="200" min="10" max="10000"
+            onchange='releasetime = this.value / 1000;'>
+        </div>
+    </fieldset>
 
 
-        <hr>
+    <fieldset>
+        <legend>Keyboard Layout</legend>
 
-      
+        <div>
+        <input type="radio" id="qwerty12" name="keyboardlayout" value="qwerty12" onclick='KeyToNote = KeyToNote_12KeyErgonomic; changeKeyboardImage("kb-notes");'
+                checked>
+        <label for="qwerty12">12 Key Qwerty</label>
+        </div>
+
+        <div>
+        <input type="radio" id="qwerty8" name="keyboardlayout" value="qwerty8" onclick='KeyToNote = KeyToNote_8KeyQwerty; changeKeyboardImage("kb-cramp");'>
+        <label for="qwerty8">8 Key Qwerty</label>
+        </div>
+
+        <div>
+        <input type="radio" id="wicki" name="keyboardlayout" value="wicki" onclick='KeyToNote = KeyToNote_IsomorphicWicki; changeKeyboardImage("kb-wicki");'>
+        <label for="wicki">Isomorphic - Wicki (<a href="https://en.wikipedia.org/wiki/Isomorphic_keyboard">info</a>)</label>
+        </div>
+
+        <div>
+        <input type="radio" id="euler" name="keyboardlayout" value="euler" onclick='KeyToNote = KeyToNote_IsomorphicEuler; changeKeyboardImage("kb-euler");'>
+        <label for="euler">Isomorphic - Euler (<a href="https://en.wikipedia.org/wiki/Tonnetz">info</a>)</label>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Tuning</legend>
+
+        <div>
+        <input type="radio" id="equal" name="tuning" value="equal" onclick='NoteToFreq = NoteToFrequency_EqualTemperment;'
+                checked>
+        <label for="equal">Equal Temperment</label>
+        </div>
+
+        <div>
+        <input type="radio" id="fiveprime" name="tuning" value="fiveprime" onclick='NoteToFreq = NoteToFrequency_FivePrimeLimitAsymmetric;'>
+        <label for="fiveprime">Asymmetric 5-Prime-Limit</label>
+        </div>
+
+        <div>
+        <label for="principleAdjuster">Frequency of <span style="background-color: #66ff66; color: black;">A4</span>: </label>
+        <input type="number" id="principleAdjuster" name="principleAdjuster"
+            value="440" min="10" max="1000"
+            onchange='principleAdjustment = this.value / principle;'>
+        </div>
+    </fieldset>
+
+    <div style="padding: 0.5rem;" title="If checked, the Tab key will play a note. If unchecked, the Tab key will cycle focus between selectable elements, as normal. This is unchecked by default for accessibility reasons.">
+    <input type="checkbox" id="coding" name="interest" value="coding" onclick='captureTab = this.checked'>
+    <label for="coding">Capture Tab key input?</label>
     </div>
+
+    <hr>
+</div>
+</div>
+  
+  
+  
+  
+  
+<div class="main" id="top">
+  <div id="main-header" class="main-header">
   </div>
-  <div class="main" id="top">
-    <div id="main-header" class="main-header">
-           
-    </div>
-    
-    
-    
-    <div id="main-content-wrap" class="main-content-wrap">
-      
-    
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <div id="main-content" class="main-content" role="main">
-        
-<h1>Type to Play Music.</h1>
-        
 
+  <div id="main-content-wrap" class="main-content-wrap">
+  <div id="main-content" class="main-content" role="main">
 
+  <h1>Type to Play Music.</h1>
 
-<div id="kbimageHolder"><img src="/tones/img/kb-notes.svg" alt="An svg depicting a qwerty keyboard, color-coded and labelled to show what note each button plays." /></div>
+  <div id="kbimageHolder"><img src="/tones/img/kb-notes.svg" alt="An svg depicting a qwerty keyboard, color-coded and labelled to show what note each button plays." /></div>
 
-<br>
-<textarea id='a nice little place for your mouse to take a break' placeholder="This text area is here just in case you want to record your keystrokes."></textarea>
-        
-<p>There are lots of online keyboard pianos out there, but I wanted one where:</p>
-<ol>
-  <li>The sounds are pure tones - sine waves - so I can play around with harmonics.</li>
-  <li>The sounds are sustained as long as the key is held down.</li>
-  <li>The notes are laid out in a way that “feels right” on a qwerty keyboard, instead of just trying to copy the layout of a piano.</li>
-</ol>
-<hr>
-        
-<p>For best results, use the following:
-<ul>
-  <li>a Chromium browser, like Edge, Brave, or Chrome (for the beeps to sound right)</li>
-  <li>a keyboard with n-key rollover (a standard laptop keyboard won't be able to play certain chords)</li>
-  <li>a US QWERTY keyboard (lest all the buttons lie in the wrong places)</li>
-</ul>
+  <br>
 
+  <p>There are lots of online keyboard pianos out there, but I wanted one where:</p>
+  <ol>
+    <li>The sounds are pure tones - sine waves - so I can play around with harmonics.</li>
+    <li>The sounds are sustained as long as the key is held down.</li>
+    <li>The notes are laid out in a way that “feels right” on a qwerty keyboard, instead of just trying to copy the layout of a piano.</li>
+  </ol>
+  <hr>
 
+  <p>For best results, use the following:
+  <ul>
+    <li>a Chromium browser, like Edge, Brave, or Chrome (for the beeps to sound right)</li>
+    <li>a keyboard with n-key rollover (a standard laptop keyboard won't be able to play certain chords)</li>
+    <li>a US QWERTY keyboard (lest all the buttons lie in the wrong places)</li>
+  </ul>
 
-<hr>
-<small>Keyboard images modified from <a href="https://commons.wikimedia.org/wiki/File:ANSI_US_QWERTY_(Windows)_Enter_Return.svg">this original by Wikimedia user Tomiĉo</a>. Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">(CC BY-SA 4.0)</a></small>
+  <hr>
 
-      </div>
-    </div>
+  <textarea style="edit:100%;" id='a nice little place for your mouse to take a break' placeholder="This text area is here just in case you want to record your keystrokes."></textarea>
 
-    
-      
+  <small>Keyboard images modified from <a href="https://commons.wikimedia.org/wiki/File:ANSI_US_QWERTY_(Windows)_Enter_Return.svg">this original by Wikimedia user Tomiĉo</a>. Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">(CC BY-SA 4.0)</a></small>
 
-      <div class="search-overlay"></div>
-    
   </div>
+  </div>
+
+  <div class="search-overlay"></div>
+</div>
+  
+  
+  
+  
 </body>
 </html>
 
