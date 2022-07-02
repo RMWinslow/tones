@@ -1,0 +1,922 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<!--
+  Hullo! This webzone uses Patrick Marsceill's "Just the Docs" theme for Jekyll 
+  https://pmarsceill.github.io/just-the-docs/
+-->
+
+  
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  
+    <title>Home - Pure Tones</title>
+
+    
+  
+
+  <link rel="shortcut icon" href="/tones/assets/favicon.ico" type="image/x-icon">
+
+  <link rel="stylesheet" href="/tones/assets/css/compiled-jtd-style.css">
+
+  
+
+  
+    <script type="text/javascript" src="/tones/assets/js/vendor/lunr.min.js"></script>
+  
+  <script type="text/javascript" src="/tones/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Home | Pure Tones</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Home" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Interactive Tones widget, along with Jianpu-style musical scores." />
+<meta property="og:description" content="Interactive Tones widget, along with Jianpu-style musical scores." />
+<link rel="canonical" href="http://www.rmwinslow.com/tones/" />
+<meta property="og:url" content="http://www.rmwinslow.com/tones/" />
+<meta property="og:site_name" content="Pure Tones" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Home" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","description":"Interactive Tones widget, along with Jianpu-style musical scores.","headline":"Home","name":"Pure Tones","url":"http://www.rmwinslow.com/tones/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script>
+//This script tries to build a keyboard that does a few things differently than what you can find online:
+//- Firstly, It's designed directly as a kayboard kayboard, not trying to mimic a piano's layout
+//- Secondly, the sounds are pure tones which are sustained as long as the key is held. Not glitchy midis.
+//- Most keys on top rows (only b on the bottom), assuming you're in C major
+
+//Here are some songs to play around with: https://noobnotes.net/browse/browse-songs-in-c-major/
+
+//Praise be to http://marcgg.com/blog/2016/11/01/javascript-audio/
+//Problems to fix:
+//			[ ] fadeout is broken in firefox
+//			[x] harmonics are clicky in chrome. Need to limit sound to fix that.
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//These are used to only start the tone when the key is first pressed.
+//Without these, holding a key will generate multiple osicillators.
+keyflags = {}
+
+// create web audio api context
+var AudioContext = window.AudioContext || window.webkitAudioContext;
+var ctx = new AudioContext();
+
+//Here's the buckets where we hold onto the sounds.
+oscillators = {};
+gains = {};
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//And here's the stuff that tells us what the frequency for each key is supposed to be.
+//It also, incidentally, implicitly defines which keys to ignore.
+//Change the tuning by changing the values of the row and column multipliers
+//var principle = 132;
+
+var principle = 440;
+NoteToFrequency_EqualTemperment = {
+    A1: (1/8) * principle,
+   bB1: (1/8) * principle * Math.pow(2,1/12),
+    B1: (1/8) * principle * Math.pow(2,2/12),
+    C2: (1/8) * principle * Math.pow(2,3/12),
+   bD2: (1/8) * principle * Math.pow(2,4/12),
+    D2: (1/8) * principle * Math.pow(2,5/12),
+   bE2: (1/8) * principle * Math.pow(2,6/12),
+    E2: (1/8) * principle * Math.pow(2,7/12),
+    F2: (1/8) * principle * Math.pow(2,8/12),
+   bG2: (1/8) * principle * Math.pow(2,9/12),
+    G2: (1/8) * principle * Math.pow(2,10/12),
+   bA2: (1/8) * principle * Math.pow(2,11/12),
+
+    A2: (1/4) * principle,
+   bB2: (1/4) * principle * Math.pow(2,1/12),
+    B2: (1/4) * principle * Math.pow(2,2/12),
+    C3: (1/4) * principle * Math.pow(2,3/12),
+   bD3: (1/4) * principle * Math.pow(2,4/12),
+    D3: (1/4) * principle * Math.pow(2,5/12),
+   bE3: (1/4) * principle * Math.pow(2,6/12),
+    E3: (1/4) * principle * Math.pow(2,7/12),
+    F3: (1/4) * principle * Math.pow(2,8/12),
+   bG3: (1/4) * principle * Math.pow(2,9/12),
+    G3: (1/4) * principle * Math.pow(2,10/12),
+   bA3: (1/4) * principle * Math.pow(2,11/12),
+
+    A3: (1/2) * principle,
+   bB3: (1/2) * principle * Math.pow(2,1/12),
+    B3: (1/2) * principle * Math.pow(2,2/12),
+    C4: (1/2) * principle * Math.pow(2,3/12),
+   bD4: (1/2) * principle * Math.pow(2,4/12),
+    D4: (1/2) * principle * Math.pow(2,5/12),
+   bE4: (1/2) * principle * Math.pow(2,6/12),
+    E4: (1/2) * principle * Math.pow(2,7/12),
+    F4: (1/2) * principle * Math.pow(2,8/12),
+   bG4: (1/2) * principle * Math.pow(2,9/12),
+    G4: (1/2) * principle * Math.pow(2,10/12),
+   bA4: (1/2) * principle * Math.pow(2,11/12),
+    
+    A4: principle,
+   bB4: principle * Math.pow(2,1/12),
+    B4: principle * Math.pow(2,2/12),
+    C5: principle * Math.pow(2,3/12),
+   bD5: principle * Math.pow(2,4/12),
+    D5: principle * Math.pow(2,5/12),
+   bE5: principle * Math.pow(2,6/12),
+    E5: principle * Math.pow(2,7/12),
+    F5: principle * Math.pow(2,8/12),
+   bG5: principle * Math.pow(2,9/12),
+    G5: principle * Math.pow(2,10/12),
+   bA5: principle * Math.pow(2,11/12),
+    
+    A5: 2 * principle,
+   bB5: 2 * principle * Math.pow(2,1/12),
+    B5: 2 * principle * Math.pow(2,2/12),
+    C6: 2 * principle * Math.pow(2,3/12),
+   bD6: 2 * principle * Math.pow(2,4/12),
+    D6: 2 * principle * Math.pow(2,5/12),
+   bE6: 2 *  principle * Math.pow(2,6/12),
+    E6: 2 * principle * Math.pow(2,7/12),
+    F6: 2 * principle * Math.pow(2,8/12),
+   bG6: 2 * principle * Math.pow(2,9/12),
+    G6: 2 * principle * Math.pow(2,10/12),
+   bA6: 2 * principle * Math.pow(2,11/12),
+
+    A6: 4 * principle,
+   bB6: 4 * principle * Math.pow(2,1/12),
+    B6: 4 * principle * Math.pow(2,2/12),
+    C7: 4 * principle * Math.pow(2,3/12),
+   bD7: 4 * principle * Math.pow(2,4/12),
+    D7: 4 * principle * Math.pow(2,5/12),
+   bE7: 4 * principle * Math.pow(2,6/12),
+    E7: 4 * principle * Math.pow(2,7/12),
+    F7: 4 * principle * Math.pow(2,8/12),
+   bG7: 4 * principle * Math.pow(2,9/12),
+    G7: 4 * principle * Math.pow(2,10/12),
+   bA7: 4 * principle * Math.pow(2,11/12),
+
+    A7: 8 * principle,
+   bB7: 8 * principle * Math.pow(2,1/12),
+    B7: 8 * principle * Math.pow(2,2/12),
+    C8: 8 * principle * Math.pow(2,3/12),
+   bD8: 8 * principle * Math.pow(2,4/12),
+    D8: 8 * principle * Math.pow(2,5/12),
+   bE8: 8 * principle * Math.pow(2,6/12),
+    E8: 8 * principle * Math.pow(2,7/12),
+    F8: 8 * principle * Math.pow(2,8/12),
+   bG8: 8 * principle * Math.pow(2,9/12),
+    G8: 8 * principle * Math.pow(2,10/12),
+   bA8: 8 * principle * Math.pow(2,11/12),
+}
+  
+NoteToFrequency_FivePrimeLimitAsymmetric = {
+    A1: (1/8) * principle * (3/5) * (5/3),
+   bB1: (1/8) * principle * (3/5) * (9/5),
+    B1: (1/8) * principle * (3/5) * (15/8),
+    C2: (1/4) * principle * (3/5),
+   bD2: (1/4) * principle * (3/5) * (16/15),
+    D2: (1/4) * principle * (3/5) * (9/8),
+   bE2: (1/4) * principle * (3/5) * (6/5),
+    E2: (1/4) * principle * (3/5) * (5/4),
+    F2: (1/4) * principle * (3/5) * (4/3),
+   bG2: (1/4) * principle * (3/5) * (45/32),
+    G2: (1/4) * principle * (3/5) * (3/2),
+   bA2: (1/4) * principle * (3/5) * (8/5),
+  
+    A2: (1/4) * principle * (3/5) * (5/3),
+   bB2: (1/4) * principle * (3/5) * (9/5),
+    B2: (1/4) * principle * (3/5) * (15/8),
+    C3: (1/2) * principle * (3/5),
+   bD3: (1/2) * principle * (3/5) * (16/15),
+    D3: (1/2) * principle * (3/5) * (9/8),
+   bE3: (1/2) * principle * (3/5) * (6/5),
+    E3: (1/2) * principle * (3/5) * (5/4),
+    F3: (1/2) * principle * (3/5) * (4/3),
+   bG3: (1/2) * principle * (3/5) * (45/32),
+    G3: (1/2) * principle * (3/5) * (3/2),
+   bA3: (1/2) * principle * (3/5) * (8/5),
+    
+    A3: (1/2) * principle * (3/5) * (5/3),
+   bB3: (1/2) * principle * (3/5) * (9/5),
+    B3: (1/2) * principle * (3/5) * (15/8),
+    C4: principle * (3/5),
+   bD4: principle * (3/5) * (16/15),
+    D4: principle * (3/5) * (9/8),
+   bE4: principle * (3/5) * (6/5),
+    E4: principle * (3/5) * (5/4),
+    F4: principle * (3/5) * (4/3),
+   bG4: principle * (3/5) * (45/32),
+    G4: principle * (3/5) * (3/2),
+   bA4: principle * (3/5) * (8/5),
+    
+    A4: principle * (3/5) * (5/3),
+   bB4: principle * (3/5) * (9/5),
+    B4: principle * (3/5) * (15/8),
+    C5: 2 * principle * (3/5),
+   bD5: 2 * principle * (3/5) * (16/15),
+    D5: 2 * principle * (3/5) * (9/8),
+   bE5: 2 * principle * (3/5) * (6/5),
+    E5: 2 * principle * (3/5) * (5/4),
+    F5: 2 * principle * (3/5) * (4/3),
+   bG5: 2 * principle * (3/5) * (45/32),
+    G5: 2 * principle * (3/5) * (3/2),
+   bA5: 2 * principle * (3/5) * (8/5),
+    
+    A5: 2 * principle * (3/5) * (5/3),
+   bB5: 2 * principle * (3/5) * (9/5),
+    B5: 2 * principle * (3/5) * (15/8),
+    C6: 4 * principle * (3/5),
+   bD6: 4 * principle * (3/5) * (16/15),
+    D6: 4 * principle * (3/5) * (9/8),
+   bE6: 4 * principle * (3/5) * (6/5),
+    E6: 4 * principle * (3/5) * (5/4),
+    F6: 4 * principle * (3/5) * (4/3),
+   bG6: 4 * principle * (3/5) * (45/32),
+    G6: 4 * principle * (3/5) * (3/2),
+   bA6: 4 * principle * (3/5) * (8/5),
+    
+    A6: 4 * principle * (3/5) * (5/3),
+   bB6: 4 * principle * (3/5) * (9/5),
+    B6: 4 * principle * (3/5) * (15/8),
+    C7: 8 * principle * (3/5),
+   bD7: 8 * principle * (3/5) * (16/15),
+    D7: 8 * principle * (3/5) * (9/8),
+   bE7: 8 * principle * (3/5) * (6/5),
+    E7: 8 * principle * (3/5) * (5/4),
+    F7: 8 * principle * (3/5) * (4/3),
+   bG7: 8 * principle * (3/5) * (45/32),
+    G7: 8 * principle * (3/5) * (3/2),
+   bA7: 8 * principle * (3/5) * (8/5),
+    
+    A7: 8 * principle * (3/5) * (5/3),
+   bB7: 8 * principle * (3/5) * (9/5),
+    B7: 8 * principle * (3/5) * (15/8),
+    C8: 16 * principle * (3/5),
+   bD8: 16 * principle * (3/5) * (16/15),
+    D8: 16 * principle * (3/5) * (9/8),
+   bE8: 16 * principle * (3/5) * (6/5),
+    E8: 16 * principle * (3/5) * (5/4),
+    F8: 16 * principle * (3/5) * (4/3),
+   bG8: 16 * principle * (3/5) * (45/32),
+    G8: 16 * principle * (3/5) * (3/2),
+   bA8: 16 * principle * (3/5) * (8/5),
+}
+
+KeyToNote_12KeyErgonomic = {
+    Digit1: 'bB2',
+    Digit2: 'bG3',
+    Digit3: 'bA3',
+    Digit4: 'bB3',
+    Digit5: 'bG4',
+    Digit6: 'bA4',
+    Digit7: 'bB4',
+    Digit8: 'bG5',
+    Digit9: 'bA5',
+    Digit0: 'bB5',
+    Minus: 'bG6',
+    Equal: 'bA6',
+    Backspace: 'bB6',
+    
+    Tab: 'A2',    
+    KeyQ: 'F3',
+    KeyW: 'G3',
+    KeyE: 'A3',
+    KeyR: 'F4',
+    KeyT: 'G4',
+    KeyY: 'A4',
+    KeyU: 'F5',
+    KeyI: 'G5',
+    KeyO: 'A5',
+    KeyP: 'F6',
+    BracketLeft: 'G6',
+    BracketRight: 'A6',
+    Backslash: 'F7',
+    
+    KeyA: 'C3',
+    KeyS: 'D3',
+    KeyD: 'E3',
+    KeyF: 'C4',
+    KeyG: 'D4',
+    KeyH: 'E4',
+    KeyJ: 'C5',
+    KeyK: 'D5',
+    KeyL: 'E5',
+    Semicolon: 'C6',
+    Quote: 'D6',
+    Enter: 'E6',
+    
+    ShiftLeft: 'B2',
+    KeyZ: 'bD3',
+    KeyX: 'bE3',
+    KeyC: 'B3',
+    KeyV: 'bD4',
+    KeyB: 'bE4',
+    KeyN: 'B4',
+    KeyM: 'bD5',
+    Comma: 'bE5',
+    Period: 'B5',
+    Slash: 'bD6',
+    ShiftRight: 'bE6',
+    
+    Numpad0: 'B3',
+    Numpad4: 'F4',
+    Numpad5: 'G4',
+    Numpad6: 'A4',
+    Numpad1: 'C4',
+    Numpad2: 'D4',
+    Numpad3: 'E4',
+    NumpadEnter: 'B4',
+    Numpad7: 'B4',
+    Numpad8: 'C5',
+    Numpad9: 'D5',
+};
+  
+KeyToNote_8KeyQwerty = {
+    Backquote: 'F1',
+    Digit1: 'C2',
+    Digit2: 'F2',
+    Digit3: 'C3',
+    Digit4: 'F3',
+    Digit5: 'C4',
+    Digit6: 'F4',
+    Digit7: 'C5',
+    Digit8: 'F5',
+    Digit9: 'C6',
+    Digit0: 'F6',
+    Minus: 'C7',
+    Equal: 'F7',
+    Backspace: 'C9',
+    
+    Tab: 'G1',      
+    KeyQ: 'D2',
+    KeyW: 'G2',
+    KeyE: 'D3',
+    KeyR: 'G3',
+    KeyT: 'D4',
+    KeyY: 'G4',
+    KeyU: 'D5',
+    KeyI: 'G5',
+    KeyO: 'D6',
+    KeyP: 'G6',
+    BracketLeft: 'D7',
+    BracketRight: 'G7',
+    Backslash: 'D9',
+    
+    KeyA: 'E2',
+    KeyS: 'A2',
+    KeyD: 'E3',
+    KeyF: 'A3',
+    KeyG: 'E4',
+    KeyH: 'A4',
+    KeyJ: 'E5',
+    KeyK: 'A5',
+    KeyL: 'E6',
+    Semicolon: 'A6',
+    Quote: 'E7',
+    Enter: 'A7',
+    
+    ShiftLeft: 'B2',
+    KeyZ: 'bG2',
+    KeyX: 'B2',
+    KeyC: 'bG3',
+    KeyV: 'B3',
+    KeyB: 'bG4',
+    KeyN: 'B4',
+    KeyM: 'bG5',
+    Comma: 'B5',
+    Period: 'bG6',
+    Slash: 'B6',
+    ShiftRight: 'B7',
+    
+    Numpad0: 'B3',
+    Numpad4: 'F4',
+    Numpad5: 'G4',
+    Numpad6: 'A4',
+    Numpad1: 'C4',
+    Numpad2: 'D4',
+    Numpad3: 'E4',
+    NumpadEnter: 'B4',
+    Numpad7: 'B4',
+    Numpad8: 'C5',
+    Numpad9: 'D5',
+};
+
+KeyToNote_IsomorphicWicki = {
+    Digit1: 'bE4',
+    Digit2: 'F4',
+    Digit3: 'G4',
+    Digit4: 'A4',
+    Digit5: 'B4',
+    Digit6: 'bD5',
+    Digit7: 'bE5',
+    Digit8: 'F5',
+    Digit9: 'G5',
+    Digit0: 'A5',
+    Minus: 'B5',
+    Equal: 'bD6',
+    Backspace: 'bE6',
+    
+    Tab: 'bA3',    
+    KeyQ: 'bB3',
+    KeyW: 'C4',
+    KeyE: 'D4',
+    KeyR: 'E4',
+    KeyT: 'bG4',
+    KeyY: 'bA4',
+    KeyU: 'bB4',
+    KeyI: 'C5',
+    KeyO: 'D5',
+    KeyP: 'E5',
+    BracketLeft: 'bG5',
+    BracketRight: 'bA5',
+    Backslash: 'bB5',
+    
+    KeyA: 'F3',
+    KeyS: 'G3',
+    KeyD: 'A3',
+    KeyF: 'B3',
+    KeyG: 'bD4',
+    KeyH: 'bE4',
+    KeyJ: 'F4',
+    KeyK: 'G4',
+    KeyL: 'A4',
+    Semicolon: 'B4',
+    Quote: 'bD5',
+    Enter: 'bE5',
+    
+    ShiftLeft: 'bB2',
+    KeyZ: 'C3',
+    KeyX: 'D3',
+    KeyC: 'E3',
+    KeyV: 'bG3',
+    KeyB: 'bA3',
+    KeyN: 'bB3',
+    KeyM: 'C4',
+    Comma: 'D4',
+    Period: 'E4',
+    Slash: 'bG4',
+    ShiftRight: 'bA4',
+    
+    Numpad0: 'B3',
+    Numpad4: 'F4',
+    Numpad5: 'G4',
+    Numpad6: 'A4',
+    Numpad1: 'C4',
+    Numpad2: 'D4',
+    Numpad3: 'E4',
+    NumpadEnter: 'B4',
+    Numpad7: 'B4',
+    Numpad8: 'C5',
+    Numpad9: 'D5',
+};
+  
+KeyToNote_IsomorphicEuler_alt1 = {
+    Backquote: 'D3',
+    Digit1: 'bG3',
+    Digit2: 'bB3',
+    Digit3: 'D4',
+    Digit4: 'bG4',
+    Digit5: 'bB4',
+    Digit6: 'D5',
+    Digit7: 'bG5',
+    Digit8: 'bB5',
+    Digit9: 'D6',
+    Digit0: 'bG6',
+    Minus: 'bB6',
+    Equal: 'D7',
+    Backspace: 'bG7',
+    
+    Tab: 'B2',    
+    KeyQ: 'bE3',
+    KeyW: 'G3',
+    KeyE: 'B3',
+    KeyR: 'bE4',
+    KeyT: 'G4',
+    KeyY: 'B4',
+    KeyU: 'bE5',
+    KeyI: 'G5',
+    KeyO: 'B5',
+    KeyP: 'bE6',
+    BracketLeft: 'G6',
+    BracketRight: 'B6',
+    Backslash: 'bE7',
+    
+    KeyA: 'C3',
+    KeyS: 'E3',
+    KeyD: 'bA3',
+    KeyF: 'C4',
+    KeyG: 'E4',
+    KeyH: 'bA4',
+    KeyJ: 'C5',
+    KeyK: 'E5',
+    KeyL: 'bA5',
+    Semicolon: 'C6',
+    Quote: 'E6',
+    Enter: 'bA6',
+    
+    ShiftLeft: 'F2',
+    KeyZ: 'A2',
+    KeyX: 'bD3',
+    KeyC: 'F3',
+    KeyV: 'A3',
+    KeyB: 'bD4',
+    KeyN: 'F4',
+    KeyM: 'A4',
+    Comma: 'bD5',
+    Period: 'F5',
+    Slash: 'A5',
+    ShiftRight: 'bD6',
+    
+    Numpad0: 'B3',
+    Numpad4: 'F4',
+    Numpad5: 'G4',
+    Numpad6: 'A4',
+    Numpad1: 'C4',
+    Numpad2: 'D4',
+    Numpad3: 'E4',
+    NumpadEnter: 'B4',
+    Numpad7: 'B4',
+    Numpad8: 'C5',
+    Numpad9: 'D5',
+};
+  
+KeyToNote_IsomorphicEuler = {
+    Backquote: 'B2',
+    Digit1: 'bE3',
+    Digit2: 'G3',
+    Digit3: 'B3',
+    Digit4: 'bE4',
+    Digit5: 'G4',
+    Digit6: 'B4',
+    Digit7: 'bE5',
+    Digit8: 'G5',
+    Digit9: 'B5',
+    Digit0: 'bE6',
+    Minus: 'G6',
+    Equal: 'B6',
+    Backspace: 'bE7',
+    
+    Tab: 'bA2',
+    KeyQ: 'C3',
+    KeyW: 'E3',
+    KeyE: 'bA3',
+    KeyR: 'C4',
+    KeyT: 'E4',
+    KeyY: 'bA4',
+    KeyU: 'C5',
+    KeyI: 'E5',
+    KeyO: 'bA5',
+    KeyP: 'C6',
+    BracketLeft: 'E6',
+    BracketRight: 'bA6',
+    Backslash: 'C7',
+    
+    KeyA: 'A2',
+    KeyS: 'bD3',
+    KeyD: 'F3',
+    KeyF: 'A3',
+    KeyG: 'bD4',
+    KeyH: 'F4',
+    KeyJ: 'A4',
+    KeyK: 'bD5',
+    KeyL: 'F5',
+    Semicolon: 'A5',
+    Quote: 'bD6',
+    Enter: 'F6',
+    
+    ShiftLeft: 'D2',
+    KeyZ: 'bG2',
+    KeyX: 'bB2',
+    KeyC: 'D3',
+    KeyV: 'bG3',
+    KeyB: 'bB3',
+    KeyN: 'D4',
+    KeyM: 'bG4',
+    Comma: 'bB4',
+    Period: 'D5',
+    Slash: 'bG5',
+    ShiftRight: 'bB5',
+    
+    Numpad0: 'B3',
+    Numpad4: 'F4',
+    Numpad5: 'G4',
+    Numpad6: 'A4',
+    Numpad1: 'C4',
+    Numpad2: 'D4',
+    Numpad3: 'E4',
+    NumpadEnter: 'B4',
+    Numpad7: 'B4',
+    Numpad8: 'C5',
+    Numpad9: 'D5',
+};
+  
+function changeKeyboardImage(filename){
+    document.getElementById('kbimageHolder').innerHTML = '<img src="/tones/img/'+filename+'.svg" alt="An svg depicting a qwerty keyboard, color-coded and labelled to show what note each button plays." />';
+}
+  
+var KeyToNote = KeyToNote_12KeyErgonomic;
+var NoteToFreq = NoteToFrequency_EqualTemperment;
+var wavetype = "sine";
+var defaultGain = 0.1; //Square and sawtooth waves are louder than sine and triangle waves. So need to have different 0.05 gain instead.
+var captureTab = false; // If true, then Tab will be used as note input instead of navigation. Disabled by default for accessibility
+
+var principleAdjustment = 1;
+
+function KeyToFreq(keycode){
+    if (KeyToNote[keycode] && NoteToFreq[KeyToNote[keycode]]){
+        return NoteToFreq[KeyToNote[keycode]] * principleAdjustment;
+    } else {
+        return false;
+    }
+}
+
+
+
+var timbreFreq =   [];
+var timbreVolume = [];
+var timbrePhase =  []; //measure in rotations, so 90 degrees is 1/4
+  
+function initiateNote(keycode){
+    //Create the basic note 
+    oscillators[keycode] = ctx.createOscillator();               //Create a sine wave
+    oscillators[keycode].frequency.value = KeyToFreq(keycode);
+    oscillators[keycode].type = wavetype;
+  
+    gains[keycode] = ctx.createGain();                           //Create volume control so we can fade it out.
+    oscillators[keycode].connect(gains[keycode]);                //Connect the components
+    gains[keycode].connect(ctx.destination);
+    
+    //Create the timbrey bits
+    for (let i = 0; i < timbreFreq.length; i++) {
+        oscillators[keycode,i] = ctx.createOscillator();
+        oscillators[keycode,i].frequency.value = KeyToFreq(keycode) * timbreFreq[i];
+        oscillators[keycode,i].type = wavetype;
+      
+        gains[keycode,i] = ctx.createGain();
+        oscillators[keycode,i].connect(gains[keycode,i]);
+        gains[keycode,i].connect(gains[keycode]);
+        gains[keycode,i].gain.value = timbreVolume[i];
+      
+        oscillators[keycode,i].start(ctx.currentTime + (1/KeyToFreq(keycode))*timbrePhase[i] );
+    }
+    
+    oscillators[keycode].start(0);                               //Start playing the sound.
+    gains[keycode].gain.value = defaultGain;                    //But keep it quiet so it doesn't blow out the speakers.
+    
+}
+var sustain = 0.2
+function terminateNote(keycode){
+    gains[keycode].gain.value = defaultGain;                                            //restablish the volume level or else it will make clicky sounds
+    gains[keycode].gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime+sustain); //fade it out (also to prevent clicky sounds)
+    oscillators[keycode].stop(ctx.currentTime + sustain+0.01);                        //Stop playing the sound.
+    //gains[keycode].disconnect(ctx.currentTime + sustain+0.05);
+    for (let i = 0; i < timbreFreq.length; i++) {
+        oscillators[keycode,i].stop(ctx.currentTime+sustain+0.01);
+        gains[keycode,i].disconnect(ctx.currentTime + sustain+0.05);
+    }
+}
+    
+
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+window.onkeydown = function(event){ 								//Whenever a key is pressed:						
+    keycode = event.code;
+
+    console.log("DOWN "+keycode+": "+KeyToFreq(keycode)+" Hz"+" "+KeyToNote[keycode]);						//Log which key is pressed
+
+    if (keycode == "Tab"){                                      
+        if (captureTab){
+            event.preventDefault();             //When box is checked, block the Tab navigation behavior.
+        } else {
+            return 0;                           //When box is not checked, prevent Tab from triggering notes (lest the notes get 'stuck on' when focus changes to the url bar.)
+        }
+    }
+      
+    if (! keyflags[keycode] && KeyToFreq(keycode)){								//If the key is part of the piano, and isn't just being held down:
+        keyflags[keycode] = 1;														//Set a flag to indicate this key is being held down.
+        initiateNote(keycode);
+    }
+}; 
+
+window.onkeyup = function(event){ 									//Whenever a key is released:	
+    keycode = event.code;									
+    if (keyflags[keycode]){													//If the key is currently playing
+    console.log("UP " + keycode);												//Log which key is let up.
+        keyflags[keycode] = 0;														//Remove it's flag to indicate that it isn't being held down anymore.
+        terminateNote(keycode)
+    }
+}; 
+</script>
+
+
+</head>
+
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="svg-link" viewBox="0 0 24 24">
+      <title>Link</title>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+      </svg>
+    </symbol>
+    <symbol id="svg-search" viewBox="0 0 24 24">
+      <title>Search</title>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+        <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </symbol>
+    <symbol id="svg-menu" viewBox="0 0 24 24">
+      <title>Menu</title>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+        <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </symbol>
+    <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+      <title>Expand</title>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </symbol>
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+      <title>Document</title>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+      </svg>
+    </symbol>
+  </svg>
+
+  <div class="side-bar">
+    <div class="site-header">
+      <a href="http://www.rmwinslow.com/tones/" class="site-title lh-tight">
+  Pure Tones
+
+</a>
+      <a href="#" id="menu-button" class="site-button">
+        <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-menu"></use></svg>
+      </a>
+    </div>
+    <div role="navigation" aria-label="Main" id="site-nav" class="site-nav" style="padding-top: 1rem;">
+
+        <fieldset>
+            <legend>Waveform Shape</legend>
+
+            <div>
+            <input type="radio" id="sine" name="wavetype" value="sine" onclick='wavetype="sine"; defaultGain = 0.1;'
+                    checked>
+            <label for="sine">sine</label>
+            </div>
+
+            <div>
+            <input type="radio" id="square" name="wavetype" value="square" onclick='wavetype="square"; defaultGain = 0.05;'>
+            <label for="square">square</label>
+            </div>
+
+            <div>
+            <input type="radio" id="sawtooth" name="wavetype" value="sawtooth" onclick='wavetype="sawtooth"; defaultGain = 0.06;'>
+            <label for="sawtooth">sawtooth</label>
+            </div>
+
+            <div>
+            <input type="radio" id="triangle" name="wavetype" value="triangle" onclick='wavetype="triangle"; defaultGain = 0.1;'>
+            <label for="triangle">triangle</label>
+            </div>
+        </fieldset>
+      
+      
+        <fieldset>
+            <legend>Keyboard Layout</legend>
+
+            <div>
+            <input type="radio" id="qwerty12" name="keyboardlayout" value="qwerty12" onclick='KeyToNote = KeyToNote_12KeyErgonomic; changeKeyboardImage("kb-notes");'
+                    checked>
+            <label for="qwerty12">12 Key Qwerty</label>
+            </div>
+
+            <div>
+            <input type="radio" id="qwerty8" name="keyboardlayout" value="qwerty8" onclick='KeyToNote = KeyToNote_8KeyQwerty; changeKeyboardImage("kb-cramp");'>
+            <label for="qwerty8">8 Key Qwerty</label>
+            </div>
+
+            <div>
+            <input type="radio" id="wicki" name="keyboardlayout" value="wicki" onclick='KeyToNote = KeyToNote_IsomorphicWicki; changeKeyboardImage("kb-wicki");'>
+            <label for="wicki">Isomorphic - Wicki (<a href="https://en.wikipedia.org/wiki/Isomorphic_keyboard">info</a>)</label>
+            </div>
+
+            <div>
+            <input type="radio" id="euler" name="keyboardlayout" value="euler" onclick='KeyToNote = KeyToNote_IsomorphicEuler; changeKeyboardImage("kb-euler");'>
+            <label for="euler">Isomorphic - Euler (<a href="https://en.wikipedia.org/wiki/Tonnetz">info</a>)</label>
+            </div>
+        </fieldset>
+      
+        <fieldset>
+            <legend>Tuning</legend>
+
+            <div>
+            <input type="radio" id="equal" name="tuning" value="equal" onclick='NoteToFreq = NoteToFrequency_EqualTemperment;'
+                    checked>
+            <label for="equal">Equal Temperment</label>
+            </div>
+
+            <div>
+            <input type="radio" id="fiveprime" name="tuning" value="fiveprime" onclick='NoteToFreq = NoteToFrequency_FivePrimeLimitAsymmetric;'>
+            <label for="fiveprime">Asymmetric 5-Prime-Limit</label>
+            </div>
+
+            <div>
+            <label for="principleAdjuster">Frequency of <span style="background-color: #66ff66; color: black;">A4</span>: </label>
+            <input type="number" id="principleAdjuster" name="principleAdjuster"
+                value="440" min="10" max="1000"
+                onchange='principleAdjustment = this.value / principle;'>
+            </div>
+        </fieldset>
+
+        <div style="padding: 0.5rem;" title="If checked, the Tab key will play a note. If unchecked, the Tab key will cycle focus between selectable elements, as normal. This is unchecked by default for accessibility reasons.">
+        <input type="checkbox" id="coding" name="interest" value="coding" onclick='captureTab = this.checked'>
+        <label for="coding">Capture Tab key input?</label>
+        </div>
+
+
+
+        <hr>
+
+      
+    </div>
+  </div>
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+           
+    </div>
+    
+    
+    
+    <div id="main-content-wrap" class="main-content-wrap">
+      
+    
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div id="main-content" class="main-content" role="main">
+        
+<h1>Type to Play Music.</h1>
+        
+
+
+
+<div id="kbimageHolder"><img src="/tones/img/kb-notes.svg" alt="An svg depicting a qwerty keyboard, color-coded and labelled to show what note each button plays." /></div>
+
+<br>
+<textarea id='a nice little place for your mouse to take a break' placeholder="This text area is here just in case you want to record your keystrokes."></textarea>
+        
+<p>There are lots of online keyboard pianos out there, but I wanted one where:</p>
+<ol>
+  <li>The sounds are pure tones - sine waves - so I can play around with harmonics.</li>
+  <li>The sounds are sustained as long as the key is held down.</li>
+  <li>The notes are laid out in a way that “feels right” on a qwerty keyboard, instead of just trying to copy the layout of a piano.</li>
+</ol>
+<hr>
+        
+<p>For best results, use the following:
+<ul>
+  <li>a Chromium browser, like Edge, Brave, or Chrome (for the beeps to sound right)</li>
+  <li>a keyboard with n-key rollover (a standard laptop keyboard won't be able to play certain chords)</li>
+  <li>a US QWERTY keyboard (lest all the buttons lie in the wrong places)</li>
+</ul>
+
+
+
+<hr>
+<small>Keyboard images modified from <a href="https://commons.wikimedia.org/wiki/File:ANSI_US_QWERTY_(Windows)_Enter_Return.svg">this original by Wikimedia user Tomiĉo</a>. Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">(CC BY-SA 4.0)</a></small>
+
+      </div>
+    </div>
+
+    
+      
+
+      <div class="search-overlay"></div>
+    
+  </div>
+</body>
+</html>
+
+
