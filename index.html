@@ -607,6 +607,76 @@ KeyToNote_IsomorphicEuler = {
     Numpad9: 'D5',
 };
   
+
+KeyToNote_IsomorphicChromatic = {
+    Backquote: 'bG2',
+    Digit1: 'bB2',
+    Digit2: 'D33',
+    Digit3: 'bG3',
+    Digit4: 'bB3',
+    Digit5: 'D4',
+    Digit6: 'bG4',
+    Digit7: 'bB4',
+    Digit8: 'D5',
+    Digit9: 'bG5',
+    Digit0: 'bB5',
+    Minus: 'D6',
+    Equal: 'bG6',
+    Backspace: 'bB6',
+    
+    Tab: 'G2',
+    KeyQ: 'B2',
+    KeyW: 'bE3',
+    KeyE: 'G3',
+    KeyR: 'B3',
+    KeyT: 'bE4',
+    KeyY: 'G4',
+    KeyU: 'B4',
+    KeyI: 'bE5',
+    KeyO: 'G5',
+    KeyP: 'B5',
+    BracketLeft: 'bE6',
+    BracketRight: 'G6',
+    Backslash: 'B6',
+    
+    KeyA: 'C3',
+    KeyS: 'E3',
+    KeyD: 'bA3',
+    KeyF: 'C4',
+    KeyG: 'E4',
+    KeyH: 'bA4',
+    KeyJ: 'C5',
+    KeyK: 'E5',
+    KeyL: 'bA5',
+    Semicolon: 'C6',
+    Quote: 'E6',
+    Enter: 'bA6',
+    
+    ShiftLeft: 'A3',
+    KeyZ: 'bD3',
+    KeyX: 'F3',
+    KeyC: 'A4',
+    KeyV: 'bD4',
+    KeyB: 'F4',
+    KeyN: 'A5',
+    KeyM: 'bD5',
+    Comma: 'F5',
+    Period: 'A6',
+    Slash: 'bD6',
+    ShiftRight: 'F6',
+    
+    Numpad0: 'B3',
+    Numpad4: 'F4',
+    Numpad5: 'G4',
+    Numpad6: 'A4',
+    Numpad1: 'C4',
+    Numpad2: 'D4',
+    Numpad3: 'E4',
+    NumpadEnter: 'B4',
+    Numpad7: 'B4',
+    Numpad8: 'C5',
+    Numpad9: 'D5',
+};
   
 //--------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -773,7 +843,12 @@ window.onkeyup = function(event){          //Whenever a key is released:
 
         <div>
         <input type="radio" id="qwerty8" name="keyboardlayout" value="qwerty8" onclick='KeyToNote = KeyToNote_8KeyQwerty; changeKeyboardImage("kb-cramp");'>
-        <label for="qwerty8">8 Key Qwerty</label>
+        <label for="qwerty8">8 Key Chromatic</label>
+        </div>
+
+        <div>
+        <input type="radio" id="chroma" name="keyboardlayout" value="chroma" onclick='KeyToNote = KeyToNote_IsomorphicChromatic; changeKeyboardImage("kb-chroma");'>
+        <label for="chroma">Isomorphic - Chromatic</label>
         </div>
 
         <div>
