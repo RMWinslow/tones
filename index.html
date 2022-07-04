@@ -890,14 +890,14 @@ window.onkeyup = function(event){          //Whenever a key is released:
         <div title="Time, in milliseconds, for the sound to reach full volume.">
         <label for="attacktimeAdjuster">Attack (ms): </label>
         <input type="number" id="attacktimeAdjuster" name="attacktimeAdjuster"
-            value="0" min="0" max="10000"
+            value="0" min="0" max="1000" step="10"
             onchange='attacktime = this.value / 1000;'>
         </div>     
       
         <div title="Time, in milliseconds, for the sound to fade out after the key is released.">
         <label for="releasetimeAdjuster">Release (ms): </label>
         <input type="number" id="releasetimeAdjuster" name="releasetimeAdjuster"
-            value="100" min="10" max="10000"
+            value="100" min="10" max="10000" step="10"
             onchange='releasetime = this.value / 1000;'>
         </div>   
     </fieldset>
