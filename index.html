@@ -719,7 +719,7 @@ function initiateNote(keycode){
     
 }
 function terminateNote(keycode){
-    gains[keycode].gain.value = defaultGain;                                                //restablish the volume level or else it will make clicky sounds
+    //gains[keycode].gain.value = defaultGain;                                                //restablish the volume level or else it will make clicky sounds
     gains[keycode].gain.linearRampToValueAtTime(0.00001, ctx.currentTime + releasetime);   //fade it out (also to prevent clicky sounds). could also use exponentialRampToValueAtTime
     oscillators[keycode].stop(ctx.currentTime + releasetime+0.01);                        //Stop playing the sound.
     //gains[keycode].disconnect(ctx.currentTime + releasetime+0.05);
