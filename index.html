@@ -72,7 +72,7 @@ gains = {};
 //This Section maps note to frequency.
 
 var principle = 440;
-NoteToFrequency_EqualTemperment = {
+NoteToFrequency_EqualTemperament = {
     C1: (1/16) * principle * Math.pow(2,3/12),
    bD1: (1/16) * principle * Math.pow(2,4/12),
     D1: (1/16) * principle * Math.pow(2,5/12),
@@ -850,7 +850,7 @@ function changeKeyboardImage(filename){
 }
   
 var KeyToNote = KeyToNote_IsomorphicWicki;
-var NoteToFreq = NoteToFrequency_EqualTemperment;
+var NoteToFreq = NoteToFrequency_EqualTemperament;
 var wavetype = "sine";
 var defaultGain = 0.1;  //Square and sawtooth waves are louder than sine and triangle waves. So need to have different 0.05 gain instead.
 var captureTab = false; // If true, then Tab will be used as note input instead of navigation. Disabled by default for accessibility
@@ -1042,9 +1042,9 @@ window.onkeyup = function(event){          //Whenever a key is released:
         <legend>Tuning</legend>
 
         <div>
-        <input type="radio" id="equal" name="tuning" value="equal" onclick='NoteToFreq = NoteToFrequency_EqualTemperment;'
+        <input type="radio" id="equal" name="tuning" value="equal" onclick='NoteToFreq = NoteToFrequency_EqualTemperament;'
                 checked>
-        <label for="equal">Equal Temperment</label>
+        <label for="equal">Equal Temperament</label>
         </div>
 
         <div>
@@ -1101,7 +1101,7 @@ window.onkeyup = function(event){          //Whenever a key is released:
 
   <h1>Type to Play Music.</h1>
 
-  <div id="kbimageHolder"><img src="/tones/img/kb-notes.svg" alt="An svg depicting a qwerty keyboard, color-coded and labelled to show what note each button plays." /></div>
+  <div id="kbimageHolder"><img src="/tones/img/kb-wicki.svg" alt="An svg depicting a qwerty keyboard, color-coded and labelled to show what musical note each button plays." /></div>
 
   <br>
 
