@@ -978,32 +978,32 @@ window.onkeyup = function(event){          //Whenever a key is released:
     <fieldset>
         <legend>Keyboard Layout</legend>
 
-        <div title="This layout attempts to fit the twelve-note scale into the layout of an ergonomic typing keyboard. Left and right hands are given different octaves, and most of the diatonic notes are found in the central rows."
+        <div title="This layout attempts to fit the twelve-note scale into the layout of an ergonomic typing keyboard. Left and right hands are given different octaves, and most of the diatonic notes are found in the central rows.">
         <input type="radio" id="qwerty12alt" name="keyboardlayout" value="qwerty12alt" onclick='KeyToNote = KeyToNote_12KeyErgonomic_Alt; changeKeyboardImage("kb-notes-alt");'>
         <label for="qwerty12alt">12 Key 'Ergonomic'</label>
         </div>
 
-        <div title="This is a variant of the above layout, flipped from top to bottom."
+        <div title="This is a variant of the above layout, flipped from top to bottom.">
         <input type="radio" id="qwerty12" name="keyboardlayout" value="qwerty12" onclick='KeyToNote = KeyToNote_12KeyErgonomic; changeKeyboardImage("kb-notes");'>
         <label for="qwerty12">12 Key Qwerty</label>
         </div>
 
-        <div title="This note layout crams many octaves onto the keyboard by giving up some of the sharps and flats."
+        <div title="This note layout crams many octaves onto the keyboard by giving up some of the sharps and flats.">
         <input type="radio" id="qwerty8" name="keyboardlayout" value="qwerty8" onclick='KeyToNote = KeyToNote_8KeyQwerty; changeKeyboardImage("kb-cramp");'>
         <label for="qwerty8">8 Key Qwerty</label>
         </div>
         
-        <div title="This layout simply lays out the chromatic scale in columns along the keyboard."
+        <div title="This layout simply lays out the chromatic scale in columns along the keyboard.">
         <input type="radio" id="columns" name="keyboardlayout" value="columns" onclick='KeyToNote = KeyToNote_IsomorphicColumns; changeKeyboardImage("kb-chroma");'>
         <label for="columns">Isomorphic - Columns</label>
         </div>
 
-        <div title="This note layout, also called the Tonnetz, was devised by mathematician Leonard Euler. Each triplet of adjacent notes forms a major or minor chord."
+        <div title="This note layout, also called the Tonnetz, was devised by mathematician Leonard Euler. Each triplet of adjacent notes forms a major or minor chord.">
         <input type="radio" id="euler" name="keyboardlayout" value="euler" onclick='KeyToNote = KeyToNote_IsomorphicEuler; changeKeyboardImage("kb-euler");'>
         <label for="euler">Isomorphic - Euler</label>
         </div>
 
-        <div title="This layout is most similar to a standard piano, with notes ascending from left to right."
+        <div title="This layout is most similar to a standard piano, with notes ascending from left to right.">
         <input type="radio" id="janko" name="keyboardlayout" value="janko" onclick='KeyToNote = KeyToNote_IsomorphicJanko; changeKeyboardImage("kb-janko");'>
         <label for="janko">Isomorphic - Janko</label>
         </div>
