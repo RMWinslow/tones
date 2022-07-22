@@ -975,23 +975,23 @@ window.onkeyup = function(event){          //Whenever a key is released:
     <fieldset>
         <legend>Waveform Shape</legend>
 
-        <div>
+        <div title="Sine waves. Pure tones.">
         <input type="radio" id="sine" name="wavetype" value="sine" onclick='wavetype="sine"; defaultGain = 0.1;'
                 checked>
         <label for="sine">sine</label>
         </div>
 
-        <div>
+        <div title="Square waves. A harsh sound often found in old video game consoles.">
         <input type="radio" id="square" name="wavetype" value="square" onclick='wavetype="square"; defaultGain = 0.05;'>
         <label for="square">square</label>
         </div>
 
-        <div>
+        <div title="Saw waves, or sawtooth waves. Harsh like a square wave but with different harmonics.">
         <input type="radio" id="sawtooth" name="wavetype" value="sawtooth" onclick='wavetype="sawtooth"; defaultGain = 0.06;'>
         <label for="sawtooth">sawtooth</label>
         </div>
 
-        <div>
+        <div title="Triangle waves. Similar harmonics to a square wave, but with a less harsh sound.">
         <input type="radio" id="triangle" name="wavetype" value="triangle" onclick='wavetype="triangle"; defaultGain = 0.1;'>
         <label for="triangle">triangle</label>
         </div>
@@ -1006,7 +1006,7 @@ window.onkeyup = function(event){          //Whenever a key is released:
         <label for="qwerty12alt">12 Key 'Ergonomic'</label>
         </div>
 
-        <div title="This is a variant of the above layout, flipped from top to bottom.">
+        <div title="This is a variant of the above layout, flipped from top to bottom, and shifted over a bit.">
         <input type="radio" id="qwerty12" name="keyboardlayout" value="qwerty12" onclick='KeyToNote = KeyToNote_12KeyErgonomic; changeKeyboardImage("kb-notes");'>
         <label for="qwerty12">12 Key Qwerty</label>
         </div>
@@ -1041,13 +1041,13 @@ window.onkeyup = function(event){          //Whenever a key is released:
     <fieldset>
         <legend>Tuning</legend>
 
-        <div>
+        <div title="Frequencies are distributed evenly along an exponential scale.">
         <input type="radio" id="equal" name="tuning" value="equal" onclick='NoteToFreq = NoteToFrequency_EqualTemperament;'
                 checked>
         <label for="equal">Equal Temperament</label>
         </div>
 
-        <div>
+        <div title="The frequencies of notes in each octave are simple fraction multiples of the frequency of C.">
         <input type="radio" id="fiveprime" name="tuning" value="fiveprime" onclick='NoteToFreq = NoteToFrequency_FivePrimeLimitAsymmetric;'>
         <label for="fiveprime">Asymmetric 5-Prime-Limit</label>
         </div>
