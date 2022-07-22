@@ -68,12 +68,21 @@ oscillators = {};
 gains = {};
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------
-
-//And here's the stuff that tells us what the frequency for each key is supposed to be.
-//It also, incidentally, implicitly defines which keys to ignore.
+//This section and the following together define the frequency played by each key.
+//This Section maps note to frequency.
 
 var principle = 440;
 NoteToFrequency_EqualTemperment = {
+    C1: (1/16) * principle * Math.pow(2,3/12),
+   bD1: (1/16) * principle * Math.pow(2,4/12),
+    D1: (1/16) * principle * Math.pow(2,5/12),
+   bE1: (1/16) * principle * Math.pow(2,6/12),
+    E1: (1/16) * principle * Math.pow(2,7/12),
+    F1: (1/16) * principle * Math.pow(2,8/12),
+   bG1: (1/16) * principle * Math.pow(2,9/12),
+    G1: (1/16) * principle * Math.pow(2,10/12),
+   bA1: (1/16) * principle * Math.pow(2,11/12),
+
     A1: (1/8) * principle,
    bB1: (1/8) * principle * Math.pow(2,1/12),
     B1: (1/8) * principle * Math.pow(2,2/12),
@@ -167,6 +176,16 @@ NoteToFrequency_EqualTemperment = {
 }
   
 NoteToFrequency_FivePrimeLimitAsymmetric = {
+    C1: (1/8) * principle * (3/5),
+   bD1: (1/8) * principle * (3/5) * (16/15),
+    D1: (1/8) * principle * (3/5) * (9/8),
+   bE1: (1/8) * principle * (3/5) * (6/5),
+    E1: (1/8) * principle * (3/5) * (5/4),
+    F1: (1/8) * principle * (3/5) * (4/3),
+   bG1: (1/8) * principle * (3/5) * (45/32),
+    G1: (1/8) * principle * (3/5) * (3/2),
+   bA1: (1/8) * principle * (3/5) * (8/5),
+
     A1: (1/8) * principle * (3/5) * (5/3),
    bB1: (1/8) * principle * (3/5) * (9/5),
     B1: (1/8) * principle * (3/5) * (15/8),
@@ -258,6 +277,10 @@ NoteToFrequency_FivePrimeLimitAsymmetric = {
     G8: 16 * principle * (3/5) * (3/2),
    bA8: 16 * principle * (3/5) * (8/5),
 }
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------
+//This section maps kay pressed to note played.
 
 KeyToNote_12KeyErgonomic = {
     Backquote: 'bA2',
@@ -413,7 +436,7 @@ KeyToNote_8KeyQwerty = {
     Digit0: 'F6',
     Minus: 'C7',
     Equal: 'F7',
-    Backspace: 'C9',
+    Backspace: 'C8',
     
     Tab: 'G1',      
     KeyQ: 'D2',
@@ -428,7 +451,7 @@ KeyToNote_8KeyQwerty = {
     KeyP: 'G6',
     BracketLeft: 'D7',
     BracketRight: 'G7',
-    Backslash: 'D9',
+    Backslash: 'D8',
     
     KeyA: 'E2',
     KeyS: 'A2',
@@ -443,7 +466,7 @@ KeyToNote_8KeyQwerty = {
     Quote: 'E7',
     Enter: 'A7',
     
-    ShiftLeft: 'B2',
+    ShiftLeft: 'B1',
     KeyZ: 'bG2',
     KeyX: 'B2',
     KeyC: 'bG3',
@@ -819,7 +842,7 @@ KeyToNote_IsomorphicJanko = {
     Numpad8: 'C5',
     Numpad9: 'D5',
 };
-  
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 function changeKeyboardImage(filename){
