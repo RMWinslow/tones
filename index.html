@@ -679,7 +679,6 @@ KeyToNote_IsomorphicEuler = {
     Numpad9: 'D5',
 };
   
-
 KeyToNote_IsomorphicColumns = {
     Backquote: 'bG2',
     Digit1: 'bB2',
@@ -736,6 +735,77 @@ KeyToNote_IsomorphicColumns = {
     Period: 'A5',
     Slash: 'bD6',
     ShiftRight: 'F6',
+    
+    Numpad0: 'B3',
+    Numpad4: 'F4',
+    Numpad5: 'G4',
+    Numpad6: 'A4',
+    Numpad1: 'C4',
+    Numpad2: 'D4',
+    Numpad3: 'E4',
+    NumpadEnter: 'B4',
+    Numpad7: 'B4',
+    Numpad8: 'C5',
+    Numpad9: 'D5',
+};
+
+
+KeyToNote_IsomorphicJanko = {
+    Backquote: 'A3',
+    Digit1: 'B3',
+    Digit2: 'bD4',
+    Digit3: 'bE4',
+    Digit4: 'F4',
+    Digit5: 'G4',
+    Digit6: 'A4',
+    Digit7: 'B4',
+    Digit8: 'bD5',
+    Digit9: 'bE5',
+    Digit0: 'F5',
+    Minus: 'G5',
+    Equal: 'A5',
+    Backspace: 'B5',
+
+    Tab: 'bB3',
+    KeyQ: 'C4',
+    KeyW: 'D4',
+    KeyE: 'E4',
+    KeyR: 'bG4',
+    KeyT: 'bA4',
+    KeyY: 'bB4',
+    KeyU: 'C5',
+    KeyI: 'D5',
+    KeyO: 'E5',
+    KeyP: 'bG5',
+    BracketLeft: 'bA5',
+    BracketRight: 'bB5',
+    Backslash: 'C6',
+
+    KeyA: 'bD4',
+    KeyS: 'bE4',
+    KeyD: 'F4',
+    KeyF: 'G4',
+    KeyG: 'A4',
+    KeyH: 'B4',
+    KeyJ: 'bD5',
+    KeyK: 'bE5',
+    KeyL: 'F5',
+    Semicolon: 'G5',
+    Quote: 'A5',
+    Enter: 'B5',
+
+    ShiftLeft: 'C4',
+    KeyZ: 'D4',
+    KeyX: 'E4',
+    KeyC: 'bG4',
+    KeyV: 'bA4',
+    KeyB: 'bB4',
+    KeyN: 'C5',
+    KeyM: 'D5',
+    Comma: 'E5',
+    Period: 'bG5',
+    Slash: 'bA5',
+    ShiftRight: 'bB5',
     
     Numpad0: 'B3',
     Numpad4: 'F4',
@@ -931,6 +1001,11 @@ window.onkeyup = function(event){          //Whenever a key is released:
         <div title="This note layout, also called the Tonnetz, was devised by mathematician Leonard Euler. Each triplet of adjacent notes forms a major or minor chord."
         <input type="radio" id="euler" name="keyboardlayout" value="euler" onclick='KeyToNote = KeyToNote_IsomorphicEuler; changeKeyboardImage("kb-euler");'>
         <label for="euler">Isomorphic - Euler</label>
+        </div>
+
+        <div title="This layout is most similar to a standard piano, with notes ascending from left to right."
+        <input type="radio" id="janko" name="keyboardlayout" value="janko" onclick='KeyToNote = KeyToNote_IsomorphicJanko; changeKeyboardImage("kb-janko");'>
+        <label for="janko">Isomorphic - Janko</label>
         </div>
 
         <div title="This note layout, also called the Wicki-Hayden note layout, can sometimes be found on accordion-type instruments. This is my personal favorite to play around with.">
