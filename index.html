@@ -4,7 +4,7 @@
 
 <html lang="en-US">
 <!--
-  Hullo! This webzone uses Patrick Marsceill's "Just the Docs" theme for Jekyll 
+  Hullo! This webzone uses a heavily modified version of Patrick Marsceill's "Just the Docs" theme for Jekyll 
   https://pmarsceill.github.io/just-the-docs/
 -->
 
@@ -904,6 +904,9 @@ window.onkeydown = function(event){                                             
         } else {
             return 0;                //When box is not checked, prevent Tab from triggering notes (lest the notes get 'stuck on' when focus changes to the url bar.)
         }
+    }
+    if (keycode == "Slash" || keycode =="Quote"){
+        event.preventDefault(); //Disable two keyboard shortcuts in Firefox which capture the focus and prevent the note from being released.
     }
     if (! keyflags[keycode] && KeyToFreq(keycode)){    //If the key is part of the piano, and isn't just being held down:
         keyflags[keycode] = 1;                         //Set a flag to indicate this key is being held down.
