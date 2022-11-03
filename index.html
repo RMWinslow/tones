@@ -844,6 +844,78 @@ KeyToNote_IsomorphicJanko = {
     Numpad9: 'D5',
 };
 
+
+KeyToNote_IsomorphicAccordion = {
+    Backquote: 'G2',
+    Digit1: 'bB2',
+    Digit2: 'bD3',
+    Digit3: 'E3',
+    Digit4: 'G3',
+    Digit5: 'bB3',
+    Digit6: 'bD4',
+    Digit7: 'E4',
+    Digit8: 'G4',
+    Digit9: 'bB4',
+    Digit0: 'bD5',
+    Minus: 'E5',
+    Equal: 'G5',
+    Backspace: 'bB5',
+
+    Tab: 'bA2',
+    KeyQ: 'B2',
+    KeyW: 'D3',
+    KeyE: 'F3',
+    KeyR: 'bA3',
+    KeyT: 'B3',
+    KeyY: 'D4',
+    KeyU: 'F4',
+    KeyI: 'bA4',
+    KeyO: 'B4',
+    KeyP: 'D5',
+    BracketLeft: 'F5',
+    BracketRight: 'bA5',
+    Backslash: 'B5',
+
+    KeyA: 'C3',
+    KeyS: 'bE3',
+    KeyD: 'bG3',
+    KeyF: 'A3',
+    KeyG: 'C4',
+    KeyH: 'bE4',
+    KeyJ: 'bG4',
+    KeyK: 'A4',
+    KeyL: 'C5',
+    Semicolon: 'bE5',
+    Quote: 'bG5',
+    Enter: 'A5',
+
+    ShiftLeft: 'bB2',
+    KeyZ: 'bD3',
+    KeyX: 'E3',
+    KeyC: 'G3',
+    KeyV: 'bB3',
+    KeyB: 'bD4',
+    KeyN: 'E4',
+    KeyM: 'G4',
+    Comma: 'bB4',
+    Period: 'bD5',
+    Slash: 'E5',
+    ShiftRight: 'G5',
+    
+    Numpad0: 'B3',
+    Numpad4: 'F4',
+    Numpad5: 'G4',
+    Numpad6: 'A4',
+    Numpad1: 'C4',
+    Numpad2: 'D4',
+    Numpad3: 'E4',
+    NumpadEnter: 'B4',
+    Numpad7: 'B4',
+    Numpad8: 'C5',
+    Numpad9: 'D5',
+};
+
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 function changeKeyboardImage(filename){
@@ -1018,6 +1090,11 @@ window.onkeyup = function(event){          //Whenever a key is released:
         <div title="This note layout crams many octaves onto the keyboard by giving up some of the sharps and flats.">
         <input type="radio" id="qwerty8" name="keyboardlayout" value="qwerty8" onclick='KeyToNote = KeyToNote_8KeyQwerty; changeKeyboardImage("kb-cramp");'>
         <label for="qwerty8">8 Key Qwerty</label>
+        </div>
+
+        <div title="This layout mimics that of a chromatic button accordion (type C).">
+        <input type="radio" id="columns" name="keyboardlayout" value="accordion" onclick='KeyToNote = KeyToNote_IsomorphicAccordion; changeKeyboardImage("kb-accordion");'>
+        <label for="accordion">Isomorphic - Accordion</label>
         </div>
         
         <div title="This layout simply lays out the chromatic scale in columns along the keyboard.">
