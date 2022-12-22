@@ -67,6 +67,7 @@ var ctx = new AudioContext();
 //Here's the buckets where we hold onto the sounds.
 oscillators = {};
 gains = {};
+subgains = {};
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------
 //This section and the following together define the frequency played by each key.
@@ -928,8 +929,11 @@ var wavetype = "sine";
 var defaultGain = 0.1;  //Square and sawtooth waves are louder than sine and triangle waves. So need to have different 0.05 gain instead.
 var captureTab = false; // If true, then Tab will be used as note input instead of navigation. Disabled by default for accessibility
 
+var timbreFreq =   [1];
+var timbreVolume = [1];
+
 var releasetime = 0.1 // How long should the note last after the key is let up?
-var attacktime = 0 // How long should the note last after the key is let up?
+var attacktime = 0 // How long before the note reaches full volume?
 var principleAdjustment = 1; //User can tune it so A4 isn't 440hz
 
 function KeyToFreq(keycode){
@@ -941,28 +945,50 @@ function KeyToFreq(keycode){
 }
 
 function initiateNote(keycode){
-    //Create the basic note 
-    oscillators[keycode] = ctx.createOscillator();               //Create a sine wave
-    oscillators[keycode].frequency.value = KeyToFreq(keycode);
-    oscillators[keycode].type = wavetype;
-  
+    console.log("start"+keycode)
     gains[keycode] = ctx.createGain();                           //Create volume control so we can fade it out.
-    oscillators[keycode].connect(gains[keycode]);                //Connect the components
     gains[keycode].connect(ctx.destination)
+    gains[keycode].gain.value = 0;                               //Keep it quiet so it doesn't blow out the speakers.
     
-    gains[keycode].gain.value = 0;                                //Keep it quiet so it doesn't blow out the speakers.
-    oscillators[keycode].start(0);                               //Start playing the sound.
-    gains[keycode].gain.linearRampToValueAtTime(defaultGain, ctx.currentTime + attacktime);
-    
+    oscillators[keycode] = [];
+    subgains[keycode] = [];
+    for (let i = 0; i < timbreFreq.length; i++) {
+        //Create the tones
+        oscillators[keycode].push(ctx.createOscillator());
+        oscillators[keycode][i].frequency.value = KeyToFreq(keycode) * timbreFreq[i];
+        oscillators[keycode][i].type = wavetype;
+        // Connect them each to their own gain node, and plug those gain nodes into the master gain for the key.
+        subgains[keycode][i] = ctx.createGain();
+        oscillators[keycode][i].connect(subgains[keycode][i]);
+        subgains[keycode][i].connect(gains[keycode]);
+        subgains[keycode][i].gain.value = timbreVolume[i];
+        //Start each oscillator
+        oscillators[keycode][i].start(ctx.currentTime);
+    }
+
+    gains[keycode].gain.linearRampToValueAtTime(defaultGain, ctx.currentTime + attacktime); //Ramp up the volume
+
+    //This ensures all the objects are cleaned up once the first oscillator is stopped.
+    //oscillators[keycode][0].onended = function() {
+    //    gains[keycode].disconnect();
+    //    for (let i = 0; i < subgains[keycode].length.length; i++) {
+    //        subgains[keycode][i].disconnect();
+    //    }
+    //};
+    //Never mind, this inteferes with rapid key pressing. I'll just the garbage collector is smart enough to eat those silent nodes.
 }
 function terminateNote(keycode){
     if (attacktime < 0.1){
         gains[keycode].gain.value = defaultGain;                                              //restablish the volume level or else it will make clicky sounds
-    }gains[keycode].gain.linearRampToValueAtTime(0.00001, ctx.currentTime + releasetime);   //fade it out (also to prevent clicky sounds). could also use exponentialRampToValueAtTime
-    oscillators[keycode].stop(ctx.currentTime + releasetime+0.01);                        //Stop playing the sound.
-    //gains[keycode].disconnect(ctx.currentTime + releasetime+0.05);
+    } 
+    gains[keycode].gain.linearRampToValueAtTime(0, ctx.currentTime + releasetime);   //fade it out (also to prevent clicky sounds). could also use exponentialRampToValueAtTime
+    // Stop the sounds.
+    for (let i = 0; i < oscillators[keycode].length; i++) {
+        oscillators[keycode][i].stop(ctx.currentTime+releasetime+0.01);
+    }
 }
-    
+
+// To do: fiddle with DynamicsCompressorNode and iirfilter nodes.
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //Now here's the section that actually pays attention to the keyboard
@@ -989,7 +1015,7 @@ window.onkeydown = function(event){                                             
 window.onkeyup = function(event){          //Whenever a key is released: 
     keycode = event.code;         
     if (keyflags[keycode]){                //If the key is currently playing
-    console.log("UP " + keycode);          //Log which key is let up.
+        console.log("UP " + keycode);          //Log which key is let up.
         keyflags[keycode] = 0;             //Remove its flag to indicate that it isn't being held down anymore.
         terminateNote(keycode)
     }
@@ -1138,6 +1164,56 @@ window.onkeyup = function(event){          //Whenever a key is released:
         <input type="number" id="principleAdjuster" name="principleAdjuster"
             value="440" min="10" max="1000"
             onchange='principleAdjustment = this.value / principle;'>
+        </div>
+    </fieldset>
+
+
+    <!--https://en.wikipedia.org/wiki/Chord_notation#Common_types_of_chords-->
+    <fieldset>
+        <legend>Each note plays a chord?</legend>
+        <div title="">
+            <input type="radio" id="singleNote" name="chording" value="singleNote" onclick='timbreFreq = [1]; timbreVolume = [1];'
+                checked>
+            <label for="singleNote">Single Note</label>
+        </div>
+
+        <div title="">
+            <input type="radio" id="majorChord" name="chording" value="majorChord" onclick='timbreFreq = [1, 5/4, 3/2]; timbreVolume = [0.6,0.6,0.6];'>
+            <label for="majorChord">Major Chord</label>
+        </div>
+        <div hidden title="">
+            <input type="radio" id="majorChord2" name="chording" value="majorChord2" onclick='timbreFreq = [1, Math.pow(2,4/12), Math.pow(2,7/12)]; timbreVolume = [0.6,0.6,0.6];'>
+            <label for="majorChord2">Major Chord2</label>
+        </div>
+        
+        <div title="">
+            <input type="radio" id="minorChord" name="chording" value="minorChord" onclick='timbreFreq = [1, 6/5, 3/2]; timbreVolume = [0.6,0.6,0.6];'>
+            <label for="minorChord">Minor Chord</label>
+        </div>
+
+        <div title="">
+            <input type="radio" id="sus4Chord" name="chording" value="sus4Chord" onclick='timbreFreq = [1, 4/3, 3/2]; timbreVolume = [0.6,0.6,0.6];'>
+            <label for="sus4Chord">Sus4 Chord</label>
+        </div>
+
+        <div title="">
+            <input type="radio" id="sus2Chord" name="chording" value="sus2Chord" onclick='timbreFreq = [1, 9/8, 3/2]; timbreVolume = [0.6,0.6,0.6];'>
+            <label for="sus2Chord">Sus2 Chord</label>
+        </div>
+
+        <div title="">
+            <input type="radio" id="augChord" name="chording" value="augChord" onclick='timbreFreq = [1, 5/4, (5/4)*(5/4)]; timbreVolume = [0.6,0.6,0.6];'>
+            <label for="augChord">Augmented Chord</label>
+        </div>
+
+        <div title="">
+            <input type="radio" id="dim7Chord" name="chording" value="dim7Chord" onclick='timbreFreq = [1, 1.2, 1.2*1.2, 1.2*1.2*1.2]; timbreVolume = [0.5,0.5,0.5,0.5];'>
+            <label for="dim7Chord">Dim7 Chord</label>
+        </div>
+
+        <div title="">
+            <input type="radio" id="dom7Chord" name="chording" value="dom7Chord" onclick='timbreFreq = [1, 5/4, 3/2, 9/5]; timbreVolume = [0.5,0.5,0.5,0.5];'>
+            <label for="dom7Chord">Dom7 Chord</label>
         </div>
     </fieldset>
 
