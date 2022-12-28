@@ -1108,7 +1108,7 @@ window.onkeyup = function(event){          //Whenever a key is released:
         <label for="qwerty12alt">12 Key 'Ergonomic'</label>
         </div>
 
-        <div title="This is a variant of the above layout, flipped from top to bottom, and shifted over a bit.">
+        <div hidden title="This is a variant of the above layout, flipped from top to bottom, and shifted over a bit.">
         <input type="radio" id="qwerty12" name="keyboardlayout" value="qwerty12" onclick='KeyToNote = KeyToNote_12KeyErgonomic; changeKeyboardImage("kb-notes");'>
         <label for="qwerty12">12 Key Qwerty</label>
         </div>
@@ -1170,16 +1170,16 @@ window.onkeyup = function(event){          //Whenever a key is released:
 
     <!--https://en.wikipedia.org/wiki/Chord_notation#Common_types_of_chords-->
     <fieldset>
-        <legend>Each note plays a chord?</legend>
+        <legend>Each keypress plays a chord?</legend>
         <div title="">
             <input type="radio" id="singleNote" name="chording" value="singleNote" onclick='timbreFreq = [1]; timbreVolume = [1];'
                 checked>
-            <label for="singleNote">Single Note</label>
+            <label for="singleNote">No, Just a Single Note</label>
         </div>
 
         <div title="">
             <input type="radio" id="majorChord" name="chording" value="majorChord" onclick='timbreFreq = [1, 5/4, 3/2]; timbreVolume = [0.6,0.6,0.6];'>
-            <label for="majorChord">Major Chord</label>
+            <label for="majorChord">Major Triad</label>
         </div>
         <div hidden title="">
             <input type="radio" id="majorChord2" name="chording" value="majorChord2" onclick='timbreFreq = [1, Math.pow(2,4/12), Math.pow(2,7/12)]; timbreVolume = [0.6,0.6,0.6];'>
@@ -1188,30 +1188,35 @@ window.onkeyup = function(event){          //Whenever a key is released:
         
         <div title="">
             <input type="radio" id="minorChord" name="chording" value="minorChord" onclick='timbreFreq = [1, 6/5, 3/2]; timbreVolume = [0.6,0.6,0.6];'>
-            <label for="minorChord">Minor Chord</label>
+            <label for="minorChord">Minor Triad</label>
         </div>
 
-        <div title="">
+        <div hidden title="">
             <input type="radio" id="sus4Chord" name="chording" value="sus4Chord" onclick='timbreFreq = [1, 4/3, 3/2]; timbreVolume = [0.6,0.6,0.6];'>
             <label for="sus4Chord">Sus4 Chord</label>
         </div>
 
-        <div title="">
+        <div hidden title="">
             <input type="radio" id="sus2Chord" name="chording" value="sus2Chord" onclick='timbreFreq = [1, 9/8, 3/2]; timbreVolume = [0.6,0.6,0.6];'>
             <label for="sus2Chord">Sus2 Chord</label>
         </div>
 
         <div title="">
             <input type="radio" id="augChord" name="chording" value="augChord" onclick='timbreFreq = [1, 5/4, (5/4)*(5/4)]; timbreVolume = [0.6,0.6,0.6];'>
-            <label for="augChord">Augmented Chord</label>
+            <label for="augChord">Augmented Triad</label>
         </div>
 
         <div title="">
+            <input type="radio" id="dimChord" name="chording" value="dimChord" onclick='timbreFreq = [1, 1.2, 64/45]; timbreVolume = [0.6,0.6,0.6];'>
+            <label for="dimChord">Diminished Triad</label>
+        </div>
+
+        <div hidden title="">
             <input type="radio" id="dim7Chord" name="chording" value="dim7Chord" onclick='timbreFreq = [1, 1.2, 1.2*1.2, 1.2*1.2*1.2]; timbreVolume = [0.5,0.5,0.5,0.5];'>
             <label for="dim7Chord">Dim7 Chord</label>
         </div>
 
-        <div title="">
+        <div hidden title="">
             <input type="radio" id="dom7Chord" name="chording" value="dom7Chord" onclick='timbreFreq = [1, 5/4, 3/2, 9/5]; timbreVolume = [0.5,0.5,0.5,0.5];'>
             <label for="dom7Chord">Dom7 Chord</label>
         </div>
