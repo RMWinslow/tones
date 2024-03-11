@@ -1,0 +1,117 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Gamepad Button Detection Test</title>
+</head>
+<body>
+<h1>Gamepad Button Detection Test</h1>
+<p id="output"></p>
+
+<script>
+
+// -----------------------------------------------------------------------------------------------------------------
+
+// Connect the controller and poll the buttons for up/down events.
+// The functions for telling the puter what to do on up/down events comes later.
+function handleGamepadConnected(event) {
+    const gamepad = event.gamepad;
+    console.log('Gamepad connected:', gamepad);
+    window.requestAnimationFrame(updateGamepad);
+}
+buttonCache = [] // holds previous frame's buttonState
+function updateGamepad() {
+    gp = navigator.getGamepads()[0]; //Assumes exactly 1 controller in "slot" 1. TODO: Handle multiple controllers.
+    buttonState = gp.buttons.map(button => button.pressed);
+    //console.log(buttonState)
+    for (let i = 0; i < buttonState.length; i++) {
+        if (!buttonCache[i] && buttonState[i]) {pressButton(i);}
+        else if (buttonCache[i] && !buttonState[i]) {releaseButton(i);}
+    }
+    buttonCache = buttonState;
+    window.requestAnimationFrame(updateGamepad);
+}
+window.addEventListener('gamepadconnected', handleGamepadConnected);
+
+// -----------------------------------------------------------------------------------------------------------------
+
+function pressButton(i){
+    console.log(`button ${i} pressed`);
+    initiateNote(i,440*Math.pow(2,i/12));
+}
+function releaseButton(i){
+    console.log(`button ${i} released`);
+    terminateNote(i);
+}
+
+// -----------------------------------------------------------------------------------------------------------------
+
+//These are used to only start the tone when the key is first pressed.
+//Without these, holding a key will generate multiple osicillators.
+keyflags = {}
+
+// create web audio api context
+var AudioContext = window.AudioContext || window.webkitAudioContext;
+var ctx = new AudioContext();
+
+//Here's the buckets where we hold onto the sounds.
+oscillators = {};
+gains = {};
+subgains = {};
+
+// -----------------------------------------------------------------------------------------------------------------
+
+//var KeyToNote = KeyToNote_IsomorphicWicki;
+//var NoteToFreq = NoteToFrequency_EqualTemperament;
+var wavetype = "triangle";
+var defaultGain = 0.1;  //Square and sawtooth waves are louder than sine and triangle waves. So need to have different 0.05 gain instead.
+var captureTab = false; // If true, then Tab will be used as note input instead of navigation. Disabled by default for accessibility
+
+var timbreFreq =   [1];
+var timbreVolume = [1];
+
+var releasetime = 0.1 // How long should the note last after the key is let up?
+var attacktime = 0.02 // How long before the note reaches full volume?
+var principleAdjustment = 1; //User can tune it so A4 isn't 440hz
+
+
+function initiateNote(label, freq){
+    console.log("start "+label)
+    gains[label] = ctx.createGain();                           //Create volume control so we can fade it out.
+    gains[label].connect(ctx.destination)
+    gains[label].gain.value = 0;                               //Keep it quiet so it doesn't blow out the speakers.
+    
+    oscillators[label] = [];
+    subgains[label] = [];
+    for (let i = 0; i < timbreFreq.length; i++) {
+        //Create the tones
+        oscillators[label].push(ctx.createOscillator());
+        oscillators[label][i].frequency.value = freq;     //KeyToFreq(label) * timbreFreq[i];
+        oscillators[label][i].type = wavetype;
+        // Connect them each to their own gain node, and plug those gain nodes into the master gain for the key.
+        subgains[label][i] = ctx.createGain();
+        oscillators[label][i].connect(subgains[label][i]);
+        subgains[label][i].connect(gains[label]);
+        subgains[label][i].gain.value = timbreVolume[i];
+        //Start each oscillator
+        oscillators[label][i].start(ctx.currentTime);
+    }
+
+    gains[label].gain.linearRampToValueAtTime(defaultGain, ctx.currentTime + attacktime); //Ramp up the volume
+}
+
+function terminateNote(label){
+    if (attacktime < 0.1){
+        gains[label].gain.value = defaultGain; //restablish the volume level or else it will make clicky sounds
+    } 
+    //fade it out (also to prevent clicky sounds). could also use exponentialRampToValueAtTime
+    gains[label].gain.linearRampToValueAtTime(0, ctx.currentTime + releasetime); 
+    // Stop the sounds.
+    for (let i = 0; i < oscillators[label].length; i++) {
+        oscillators[label][i].stop(ctx.currentTime+releasetime+0.01);
+    }
+}
+
+
+</script>
+</body>
+</html>
